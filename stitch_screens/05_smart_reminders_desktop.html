@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;600&amp;family=Manrope:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"surface-bright":"#f8f9ff","on-surface":"#0b1c30","on-tertiary":"#ffffff","primary":"#004ac6","inverse-surface":"#213145","on-secondary-fixed-variant":"#3f465c","surface-variant":"#d3e4fe","surface-container":"#e5eeff","secondary-fixed":"#dae2fd","secondary-container":"#dae2fd","on-tertiary-fixed-variant":"#005236","on-primary":"#ffffff","on-primary-container":"#eeefff","surface-container-lowest":"#ffffff","on-secondary-fixed":"#131b2e","tertiary-fixed":"#6ffbbe","on-secondary":"#ffffff","primary-fixed":"#dbe1ff","on-primary-fixed":"#00174b","outline":"#737686","on-surface-variant":"#434655","background":"#f8f9ff","surface":"#f8f9ff","on-background":"#0b1c30","surface-tint":"#0053db","surface-container-high":"#dce9ff","error-container":"#ffdad6","inverse-primary":"#b4c5ff","on-error-container":"#93000a","secondary":"#565e74","tertiary":"#006242","error":"#ba1a1a","tertiary-fixed-dim":"#4edea3","primary-container":"#2563eb","secondary-fixed-dim":"#bec6e0","inverse-on-surface":"#eaf1ff","primary-fixed-dim":"#b4c5ff","tertiary-container":"#007d55","surface-container-low":"#eff4ff","on-tertiary-container":"#bdffdb","surface-dim":"#cbdbf5","on-primary-fixed-variant":"#003ea8","outline-variant":"#c3c6d7","surface-container-highest":"#d3e4fe","on-tertiary-fixed":"#002113","on-secondary-container":"#5c647a","on-error":"#ffffff"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-2xl":"3rem","gutter-desktop":"1.5rem","margin-tablet":"1.5rem","space-xs":"0.25rem","space-xl":"2rem","space-base":"1rem","gutter":"1rem","space-md":"0.75rem","margin":"1rem","space-lg":"1.5rem","margin-desktop":"2rem","space-2xs":"0.125rem","space-sm":"0.5rem"},"fontFamily":{"display":["Manrope"],"caption":["Inter"],"headline-lg":["Manrope"],"metric-stat":["JetBrains Mono"],"headline-sm":["Manrope"],"body-md":["Inter"],"headline-md":["Manrope"],"headline-lg-mobile":["Manrope"],"label-code":["JetBrains Mono"],"body-lg":["Inter"],"body-sm":["Inter"],"display-mobile":["Manrope"]},"fontSize":{"display":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"caption":["11px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"500"}],"headline-lg":["30px",{"lineHeight":"38px","letterSpacing":"-0.015em","fontWeight":"600"}],"metric-stat":["20px",{"lineHeight":"24px","fontWeight":"600"}],"headline-sm":["18px",{"lineHeight":"24px","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"headline-md":["22px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-code":["13px",{"lineHeight":"18px","fontWeight":"500"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"display-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"700"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between"><div class="flex flex-col"><div class="h-16 px-space-base flex items-center gap-space-sm bg-surface-container-lowest"><img alt="InsureRenew logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Vl9azc3tREBsI2NDlROJUht5acO_yrIw6J7Kj7afG11mitgEeVx6Fx0wCP67xofn5PzOnnqPHFdptx4ECgu95D63zc4urRubixZArHWE_X97JcV_u_YISLoK62BWs7BYIDG7e5QFV-ZPD89WCQfl0dOc6q1l0TpOJuQo1NFJlc6Rc81M6AZ6eavao8nGMbk11ZIuoD-knEBV99CmS7dxSzIp8FRvtP1cxq9_6Nu9p7B9s4HVcA0R3J8s_8"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface leading-tight">InsureRenew</span><span class="font-caption text-caption text-on-surface-variant leading-tight">Retention &amp; Risk Console</span></div></div><div class="px-space-base py-space-sm"><div class="p-space-sm rounded-xl bg-surface-container-low flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-primary text-[18px]">verified_user</span><span class="font-caption text-caption text-on-surface font-semibold">Underwriting Live</span></div><span class="font-label-code text-label-code text-tertiary-container bg-surface-container-lowest px-space-xs py-space-2xs rounded-lg">AA-Tier</span></div></div><nav class="flex flex-col gap-space-xs px-space-base mt-space-sm" data-active-classes="bg-primary-container text-on-primary font-semibold shadow-[0_1px_4px_rgba(37,99,235,0.2)]"><a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" data-path="overview-retention-dashboard" href="#">Overview</a><a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" data-path="portfolio-renewals" href="#">Portfolio &amp; Renewals</a><a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" data-path="lapse-risk-analysis" href="#">Lapse Risk Analysis</a><a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" data-path="renewal-offers" href="#">Renewal Offers</a><a aria-current="page" class="flex items-center px-space-md py-space-sm rounded-xl transition-all bg-primary-container text-on-primary font-semibold shadow-[0_1px_4px_rgba(37,99,235,0.2)]" data-path="smart-reminders" href="#">Smart Reminders</a><a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" data-path="customer-details" href="#">Customer Details</a></nav></div><div class="p-space-base flex flex-col gap-space-sm bg-surface-container-lowest"><div class="p-space-md bg-surface-container-low rounded-xl flex items-center justify-between"><div class="flex flex-col"><span class="font-caption text-caption text-on-surface-variant">Target Retention</span><span class="font-metric-stat text-metric-stat text-primary">94.2%</span></div><span class="material-symbols-outlined text-tertiary text-[24px]">trending_up</span></div><div class="flex items-center justify-between px-space-xs text-on-surface-variant font-caption text-caption"><span>Retention Node: v2.4</span><span class="inline-block w-2 h-2 rounded-full bg-tertiary-container"></span></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-base flex-1 max-w-xl"><div class="relative w-full"><span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span><input class="w-full h-10 pl-10 pr-space-base rounded-xl bg-surface-container-lowest text-on-surface font-body-sm text-body-sm shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline" placeholder="Search policy ID, customer name, VIN, or agent code..." type="text"/></div></div><div class="flex items-center gap-space-md"><div class="hidden lg:flex items-center gap-space-xs bg-surface-container-lowest px-space-md h-10 rounded-xl shadow-[0_1px_3px_0_rgba(15,23,42,0.04)]"><span class="material-symbols-outlined text-on-surface-variant text-[18px]">calendar_today</span><span class="font-caption text-caption text-on-surface font-medium">Q3 Fiscal Cycle (Oct - Dec)</span><span class="material-symbols-outlined text-outline text-[16px]">expand_more</span></div><button class="relative p-space-sm rounded-xl bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors shadow-[0_1px_3px_0_rgba(15,23,42,0.04)]" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-error text-on-error font-label-code text-[10px] font-bold">5</span></button><div class="flex items-center gap-space-md pl-space-xs"><div class="hidden md:flex flex-col text-right"><span class="font-headline-sm text-body-md text-on-surface font-semibold leading-tight">Elena Rostova</span><span class="font-caption text-caption text-on-surface-variant leading-tight">Chief Retention Officer</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<div class="w-full max-w-[1440px] mx-auto px-space-base md:px-margin-desktop py-space-lg flex flex-col gap-space-lg">
+<!-- Breadcrumb & Top Command Bar -->
+<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-md">
+<div class="flex flex-col gap-space-2xs">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-caption text-caption">
+<span>Campaign Operations</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-semibold">Smart Renewal Reminders</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span>Automated Outreach Hub</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Smart Renewal Reminders &amp; Outreach Hub</h1>
+<span class="inline-flex items-center gap-1 px-space-xs py-space-2xs bg-tertiary/10 text-tertiary rounded-full font-label-code text-body-sm font-semibold">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+            Real-Time Engine Active
+          </span>
+</div>
+</div>
+<!-- Quick Action Buttons -->
+<div class="flex items-center gap-space-sm">
+<button class="h-10 px-space-md bg-surface-container-lowest text-on-surface hover:bg-surface-container-high rounded-xl font-body-sm font-semibold shadow-sm transition-all flex items-center gap-space-xs" type="button">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">tune</span>
+<span>Cadence Rules</span>
+</button>
+<button class="h-10 px-space-lg bg-primary hover:bg-primary-container text-on-primary rounded-xl font-body-sm font-semibold shadow-sm transition-all flex items-center gap-space-xs" id="batchDispatchBtn" type="button">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+<span>Batch Dispatch All Urgent (4)</span>
+</button>
+</div>
+</div>
+<!-- Metrics & Cycle Progress Strip -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Metric 1: Pending -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-start justify-between">
+<span class="font-caption text-caption uppercase text-on-surface-variant tracking-wider font-semibold">Pending Reminders</span>
+<span class="p-space-2xs rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+</span>
+</div>
+<div class="mt-space-sm">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display text-display text-on-surface">24</span>
+<span class="font-caption text-caption text-error font-medium">4 Critical &lt; 72h</span>
+</div>
+<div class="mt-space-xs flex items-center gap-space-xs text-on-surface-variant font-caption text-caption">
+<span>₹18.4L premium at immediate risk</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-primary"></div>
+</div>
+<!-- Metric 2: Completed Today -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-start justify-between">
+<span class="font-caption text-caption uppercase text-on-surface-variant tracking-wider font-semibold">Contacted Today</span>
+<span class="p-space-2xs rounded-lg bg-tertiary/10 text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</span>
+</div>
+<div class="mt-space-sm">
+<div class="flex items-baseline justify-between">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display text-display text-on-surface">14</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">/ 38 planned</span>
+</div>
+<span class="font-label-code text-label-code font-semibold text-tertiary">37% Goal</span>
+</div>
+<!-- Tiny Bar Progress -->
+<div class="w-full bg-surface-container h-2 rounded-full mt-space-xs overflow-hidden">
+<div class="bg-tertiary h-full rounded-full transition-all duration-500" style="width: 37%"></div>
+</div>
+</div>
+</div>
+<!-- Metric 3: Response Rate -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-start justify-between">
+<span class="font-caption text-caption uppercase text-on-surface-variant tracking-wider font-semibold">Retention Conversion</span>
+<span class="p-space-2xs rounded-lg bg-primary-fixed text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">trending_up</span>
+</span>
+</div>
+<div class="mt-space-sm">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display text-display text-on-surface">72%</span>
+<span class="font-label-code text-label-code text-tertiary flex items-center">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>+4.2%
+            </span>
+</div>
+<div class="mt-space-xs text-on-surface-variant font-caption text-caption">
+<span>Vs. prior cycle (67.8% benchmark)</span>
+</div>
+</div>
+</div>
+<!-- Metric 4: AI Queue Velocity -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-start justify-between">
+<span class="font-caption text-caption uppercase text-on-surface-variant tracking-wider font-semibold">Optimal Window Peak</span>
+<span class="p-space-2xs rounded-lg bg-surface-container-high text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">offline_bolt</span>
+</span>
+</div>
+<div class="mt-space-sm">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-primary font-bold">4:00 - 6:00 PM</span>
+</div>
+<div class="mt-space-xs text-on-surface-variant font-caption text-caption">
+<span>+28% propensity surge forecasted</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Filter Pills & Queue Meta Bar -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm bg-surface-container-lowest p-space-xs rounded-xl shadow-sm">
+<div class="flex flex-wrap items-center gap-space-xs">
+<button class="filter-tab px-space-md py-space-xs rounded-lg bg-primary text-on-primary font-body-sm font-semibold transition-colors flex items-center gap-1" data-filter="all">
+<span>All</span>
+<span class="bg-on-primary/20 text-on-primary px-1.5 py-0.5 rounded-full text-caption font-label-code">24</span>
+</button>
+<button class="filter-tab px-space-md py-space-xs rounded-lg hover:bg-surface-container text-on-surface-variant font-body-sm font-medium transition-colors flex items-center gap-1" data-filter="urgent">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span>Urgent (&lt; 3d)</span>
+<span class="bg-error-container text-on-error-container px-1.5 py-0.5 rounded-full text-caption font-label-code font-bold">4</span>
+</button>
+<button class="filter-tab px-space-md py-space-xs rounded-lg hover:bg-surface-container text-on-surface-variant font-body-sm font-medium transition-colors flex items-center gap-1" data-filter="high">
+<span>High Priority (&lt; 7d)</span>
+<span class="bg-surface-container text-on-surface-variant px-1.5 py-0.5 rounded-full text-caption font-label-code">8</span>
+</button>
+<button class="filter-tab px-space-md py-space-xs rounded-lg hover:bg-surface-container text-on-surface-variant font-body-sm font-medium transition-colors flex items-center gap-1" data-filter="medium">
+<span>Medium (&lt; 14d)</span>
+<span class="bg-surface-container text-on-surface-variant px-1.5 py-0.5 rounded-full text-caption font-label-code">7</span>
+</button>
+<button class="filter-tab px-space-md py-space-xs rounded-lg hover:bg-surface-container text-on-surface-variant font-body-sm font-medium transition-colors flex items-center gap-1" data-filter="completed">
+<span>Contacted</span>
+<span class="bg-tertiary/10 text-tertiary px-1.5 py-0.5 rounded-full text-caption font-label-code font-semibold">14</span>
+</button>
+</div>
+<div class="flex items-center gap-space-xs px-space-sm text-on-surface-variant font-caption text-caption justify-end">
+<span class="material-symbols-outlined text-[16px]">sort</span>
+<span>Ranked by ML Lapse Propensity</span>
+</div>
+</div>
+<!-- Main Dual Workbench Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+<!-- Left Column: Master Smart Outreach Queue (7 or 8 columns on desktop) -->
+<div class="xl:col-span-8 flex flex-col gap-space-md">
+<!-- Queue Card 1: Rahul Sharma (URGENT) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all hover:shadow-md relative overflow-hidden" data-priority="urgent">
+<!-- Persistent Left Severity Accent Strip -->
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-error"></div>
+<div class="pl-space-xs flex flex-col gap-space-sm">
+<!-- Header Row -->
+<div class="flex flex-wrap items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-error-container text-on-error-container flex items-center justify-center font-display text-body-md font-bold">
+                  RS
+                </div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">Rahul Sharma</span>
+<span class="font-label-code text-caption text-on-surface-variant bg-surface-container-low px-1.5 py-0.5 rounded">#POL-1082</span>
+<span class="px-space-xs py-space-2xs bg-error-container text-on-error-container rounded-full font-label-code text-caption font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">emergency_home</span>
+                      Lapse Risk: 78/100
+                    </span>
+</div>
+<div class="flex items-center gap-space-sm font-caption text-caption text-on-surface-variant mt-0.5">
+<span class="font-medium text-on-surface">Health Shield Comprehensive</span>
+<span>•</span>
+<span>Annual Premium: <strong class="text-on-surface font-label-code">₹28,500</strong></span>
+<span>•</span>
+<span class="text-error font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">timer</span>
+                      Renews Oct 28 (in 3 days)
+                    </span>
+</div>
+</div>
+</div>
+<!-- Channel & Velocity Pill -->
+<div class="flex flex-col items-end gap-1">
+<div class="inline-flex items-center gap-1 px-space-sm py-1 bg-surface-container rounded-lg font-caption text-caption font-semibold text-primary">
+<span class="material-symbols-outlined text-[15px]">call</span>
+                  Prescribed: Direct Phone Call
+                </div>
+<span class="font-caption text-[11px] text-tertiary font-medium">Optimal Window: 4:00 PM – 6:00 PM (84% Conv.)</span>
+</div>
+</div>
+<!-- Context Details & Recommendation Strip -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col md:flex-row items-start md:items-center justify-between gap-space-sm text-body-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">auto_awesome</span>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-on-surface-variant font-medium">Prescribed Retention Bundle:</span>
+<span class="text-on-surface font-semibold">Loyalty Discount 12% + Free Comprehensive Annual Health Checkup</span>
+</div>
+</div>
+<div class="text-on-surface-variant text-caption flex items-center gap-1 bg-surface-container-lowest px-space-xs py-1 rounded">
+<span class="material-symbols-outlined text-[14px] text-error">warning</span>
+<span>Friction: Prior Claim Delay (Resolved Oct 12)</span>
+</div>
+</div>
+<!-- Action Controls Row -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<button class="h-9 px-space-md bg-primary hover:bg-primary-container text-on-primary rounded-lg font-body-sm font-semibold shadow-sm transition-all flex items-center gap-space-xs" onclick="openDispatchModal('Rahul Sharma', 'Direct Phone Call', '+91 98401 22841', 'Loyalty 12% + Free Checkup')">
+<span class="material-symbols-outlined text-[16px]">call</span>
+<span>Initiate Priority Call</span>
+</button>
+<button class="h-9 px-space-md bg-surface-container-lowest hover:bg-surface-container-high text-on-surface rounded-lg font-body-sm font-medium transition-all flex items-center gap-space-xs" onclick="openDispatchModal('Rahul Sharma', 'Direct Phone Call', '+91 98401 22841', 'Schedule for 4:30 PM')">
+<span class="material-symbols-outlined text-[16px]">event</span>
+<span>Schedule Call</span>
+</button>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="h-9 px-space-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-lg font-caption text-caption transition-colors flex items-center gap-1" title="Snooze for 12 hours">
+<span class="material-symbols-outlined text-[16px]">snooze</span>
+<span>Snooze 12h</span>
+</button>
+<button class="h-9 px-space-sm text-tertiary hover:bg-tertiary/10 rounded-lg font-caption text-caption font-semibold transition-colors flex items-center gap-1 mark-contacted-btn">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+<span>Mark Contacted</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Queue Card 2: Sunita Rao (URGENT) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all hover:shadow-md relative overflow-hidden" data-priority="urgent">
+<!-- Persistent Left Severity Accent Strip -->
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-error"></div>
+<div class="pl-space-xs flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-error-container text-on-error-container flex items-center justify-center font-display text-body-md font-bold">
+                  SR
+                </div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">Sunita Rao</span>
+<span class="font-label-code text-caption text-on-surface-variant bg-surface-container-low px-1.5 py-0.5 rounded">#POL-1044 / #MC-88120</span>
+<span class="px-space-xs py-space-2xs bg-error-container text-on-error-container rounded-full font-label-code text-caption font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">emergency_home</span>
+                      Lapse Risk: 88/100
+                    </span>
+</div>
+<div class="flex items-center gap-space-sm font-caption text-caption text-on-surface-variant mt-0.5">
+<span class="font-medium text-on-surface">Motor Comprehensive (Mercedes C-Class)</span>
+<span>•</span>
+<span>Annual Premium: <strong class="text-on-surface font-label-code">₹42,500</strong></span>
+<span>•</span>
+<span class="text-error font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">timer</span>
+                      Renews in 5 days
+                    </span>
+</div>
+</div>
+</div>
+<!-- Channel & Velocity Pill -->
+<div class="flex flex-col items-end gap-1">
+<div class="inline-flex items-center gap-1 px-space-sm py-1 bg-tertiary/10 rounded-lg font-caption text-caption font-semibold text-tertiary">
+<span class="material-symbols-outlined text-[15px]">chat</span>
+                  Prescribed: WhatsApp Interactive Nudge
+                </div>
+<span class="font-caption text-[11px] text-tertiary font-medium">94% Open Probability • Instant Checkout Link</span>
+</div>
+</div>
+<!-- Context Details Strip -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col md:flex-row items-start md:items-center justify-between gap-space-sm text-body-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-tertiary text-[20px]">payments</span>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-on-surface-variant font-medium">Prescribed Retention Bundle:</span>
+<span class="text-on-surface font-semibold">Installment Plan (3-part 0% interest split: ₹14,166/mo via auto-mandate)</span>
+</div>
+</div>
+<div class="text-on-surface-variant text-caption flex items-center gap-1 bg-surface-container-lowest px-space-xs py-1 rounded">
+<span class="material-symbols-outlined text-[14px] text-primary">touch_app</span>
+<span>Prefers direct UPI / WhatsApp payment</span>
+</div>
+</div>
+<!-- Action Controls Row -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<button class="h-9 px-space-md bg-tertiary hover:bg-tertiary-container text-on-tertiary rounded-lg font-body-sm font-semibold shadow-sm transition-all flex items-center gap-space-xs" onclick="openDispatchModal('Sunita Rao', 'WhatsApp Interactive Nudge', '+91 99120 44901', '3-Part 0% EMI Installment Plan')">
+<span class="material-symbols-outlined text-[16px]">send</span>
+<span>Send WhatsApp Nudge</span>
+</button>
+<button class="h-9 px-space-md bg-surface-container-lowest hover:bg-surface-container-high text-on-surface rounded-lg font-body-sm font-medium transition-all flex items-center gap-space-xs" onclick="openDispatchModal('Sunita Rao', 'WhatsApp Interactive Nudge', '+91 99120 44901', 'Template Preview')">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Preview Payload</span>
+</button>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="h-9 px-space-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-lg font-caption text-caption transition-colors flex items-center gap-1" title="Snooze reminder">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span>Snooze</span>
+</button>
+<button class="h-9 px-space-sm text-tertiary hover:bg-tertiary/10 rounded-lg font-caption text-caption font-semibold transition-colors flex items-center gap-1 mark-contacted-btn">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+<span>Mark Contacted</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Queue Card 3: Amit Verma (HIGH) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all hover:shadow-md relative overflow-hidden" data-priority="high">
+<!-- Persistent Left Severity Accent Strip -->
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-error"></div>
+<div class="pl-space-xs flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-primary flex items-center justify-center font-display text-body-md font-bold">
+                  AV
+                </div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">Amit Verma</span>
+<span class="font-label-code text-caption text-on-surface-variant bg-surface-container-low px-1.5 py-0.5 rounded">#POL-1102</span>
+<span class="px-space-xs py-space-2xs bg-error-container text-on-error-container rounded-full font-label-code text-caption font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">warning</span>
+                      Lapse Risk: 74/100
+                    </span>
+</div>
+<div class="flex items-center gap-space-sm font-caption text-caption text-on-surface-variant mt-0.5">
+<span class="font-medium text-on-surface">Term Life Shield (₹1.5 Cr Coverage)</span>
+<span>•</span>
+<span>Annual Premium: <strong class="text-on-surface font-label-code">₹64,200</strong></span>
+<span>•</span>
+<span class="text-error font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">timer</span>
+                      Renews in 6 days
+                    </span>
+</div>
+</div>
+</div>
+<!-- Channel & Velocity Pill -->
+<div class="flex flex-col items-end gap-1">
+<div class="inline-flex items-center gap-1 px-space-sm py-1 bg-surface-container rounded-lg font-caption text-caption font-semibold text-primary">
+<span class="material-symbols-outlined text-[15px]">headset_mic</span>
+                  Prescribed: Senior Advisor Call
+                </div>
+<span class="font-caption text-[11px] text-on-surface-variant font-medium">Unopened WhatsApp notifications • Afternoon preference</span>
+</div>
+</div>
+<!-- Context Details Strip -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col md:flex-row items-start md:items-center justify-between gap-space-sm text-body-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">lock_clock</span>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-on-surface-variant font-medium">Prescribed Retention Bundle:</span>
+<span class="text-on-surface font-semibold">Premium Freeze &amp; Guaranteed Inflation Adjustment Rider Waiver</span>
+</div>
+</div>
+<div class="text-on-surface-variant text-caption flex items-center gap-1 bg-surface-container-lowest px-space-xs py-1 rounded">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">person_check</span>
+<span>Assigned: Senior Advisor Rajeev K.</span>
+</div>
+</div>
+<!-- Action Controls Row -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<button class="h-9 px-space-md bg-primary hover:bg-primary-container text-on-primary rounded-lg font-body-sm font-semibold shadow-sm transition-all flex items-center gap-space-xs" onclick="openDispatchModal('Amit Verma', 'Direct Phone Call', '+91 97200 11983', 'Premium Freeze &amp; Inflation Rider')">
+<span class="material-symbols-outlined text-[16px]">call</span>
+<span>Connect Advisor</span>
+</button>
+<button class="h-9 px-space-md bg-surface-container-lowest hover:bg-surface-container-high text-on-surface rounded-lg font-body-sm font-medium transition-all flex items-center gap-space-xs" onclick="openDispatchModal('Amit Verma', 'SMS Notification', '+91 97200 11983', 'SMS Reminder Backup')">
+<span class="material-symbols-outlined text-[16px]">sms</span>
+<span>Send SMS Backup</span>
+</button>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="h-9 px-space-sm text-tertiary hover:bg-tertiary/10 rounded-lg font-caption text-caption font-semibold transition-colors flex items-center gap-1 mark-contacted-btn">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+<span>Mark Contacted</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Queue Card 4: Vikram Malhotra (MEDIUM) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all hover:shadow-md relative overflow-hidden" data-priority="medium">
+<!-- Persistent Left Severity Accent Strip -->
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-secondary-container"></div>
+<div class="pl-space-xs flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-display text-body-md font-bold">
+                  VM
+                </div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">Vikram Malhotra</span>
+<span class="font-label-code text-caption text-on-surface-variant bg-surface-container-low px-1.5 py-0.5 rounded">#POL-1192</span>
+<span class="px-space-xs py-space-2xs bg-secondary-container text-on-secondary-container rounded-full font-label-code text-caption font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">shield</span>
+                      Lapse Risk: 54/100
+                    </span>
+</div>
+<div class="flex items-center gap-space-sm font-caption text-caption text-on-surface-variant mt-0.5">
+<span class="font-medium text-on-surface">Family Floater Guard</span>
+<span>•</span>
+<span>Annual Premium: <strong class="text-on-surface font-label-code">₹31,000</strong></span>
+<span>•</span>
+<span class="text-on-surface-variant font-medium flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                      Renews in 12 days
+                    </span>
+</div>
+</div>
+</div>
+<!-- Channel & Velocity Pill -->
+<div class="flex flex-col items-end gap-1">
+<div class="inline-flex items-center gap-1 px-space-sm py-1 bg-surface-container rounded-lg font-caption text-caption font-semibold text-on-surface">
+<span class="material-symbols-outlined text-[15px]">mail</span>
+                  Prescribed: Automated Smart Email
+                </div>
+<span class="font-caption text-[11px] text-on-surface-variant font-medium">Interactive renewal statement with attached benefit audit</span>
+</div>
+</div>
+<!-- Context Details Strip -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col md:flex-row items-start md:items-center justify-between gap-space-sm text-body-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">loyalty</span>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-on-surface-variant font-medium">Prescribed Retention Bundle:</span>
+<span class="text-on-surface font-semibold">Multi-Year Policy Lock (10% rebate on 2-year advance commitment)</span>
+</div>
+</div>
+<div class="text-on-surface-variant text-caption flex items-center gap-1 bg-surface-container-lowest px-space-xs py-1 rounded">
+<span class="material-symbols-outlined text-[14px] text-tertiary">mark_email_read</span>
+<span>Last opened email: Yesterday</span>
+</div>
+</div>
+<!-- Action Controls Row -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<button class="h-9 px-space-md bg-primary hover:bg-primary-container text-on-primary rounded-lg font-body-sm font-semibold shadow-sm transition-all flex items-center gap-space-xs" onclick="openDispatchModal('Vikram Malhotra', 'Automated Smart Email', 'vikram.m@zenithcorp.in', 'Multi-Year 10% Policy Lock')">
+<span class="material-symbols-outlined text-[16px]">send</span>
+<span>Send Smart Email</span>
+</button>
+<button class="h-9 px-space-md bg-surface-container-lowest hover:bg-surface-container-high text-on-surface rounded-lg font-body-sm font-medium transition-all flex items-center gap-space-xs" onclick="openDispatchModal('Vikram Malhotra', 'Automated Smart Email', 'vikram.m@zenithcorp.in', 'Preview Template')">
+<span class="material-symbols-outlined text-[16px]">drafts</span>
+<span>Preview Template</span>
+</button>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="h-9 px-space-sm text-tertiary hover:bg-tertiary/10 rounded-lg font-caption text-caption font-semibold transition-colors flex items-center gap-1 mark-contacted-btn">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+<span>Mark Contacted</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Queue Card 5: Priya Patel (HIGH/URGENT) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all hover:shadow-md relative overflow-hidden" data-priority="high">
+<!-- Persistent Left Severity Accent Strip -->
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-error"></div>
+<div class="pl-space-xs flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-error-container text-on-error-container flex items-center justify-center font-display text-body-md font-bold">
+                  PP
+                </div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">Priya Patel</span>
+<span class="font-label-code text-caption text-on-surface-variant bg-surface-container-low px-1.5 py-0.5 rounded">#POL-1104</span>
+<span class="px-space-xs py-space-2xs bg-error-container text-on-error-container rounded-full font-label-code text-caption font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">emergency_home</span>
+                      Lapse Risk: 82/100
+                    </span>
+</div>
+<div class="flex items-center gap-space-sm font-caption text-caption text-on-surface-variant mt-0.5">
+<span class="font-medium text-on-surface">Motor EV Shield (Tata Nexon EV)</span>
+<span>•</span>
+<span>Annual Premium: <strong class="text-on-surface font-label-code">₹18,400</strong></span>
+<span>•</span>
+<span class="text-on-surface-variant font-medium flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                      Renews in 14 days
+                    </span>
+</div>
+</div>
+</div>
+<!-- Channel & Velocity Pill -->
+<div class="flex flex-col items-end gap-1">
+<div class="inline-flex items-center gap-1 px-space-sm py-1 bg-tertiary/10 rounded-lg font-caption text-caption font-semibold text-tertiary">
+<span class="material-symbols-outlined text-[15px]">chat</span>
+                  Prescribed: WhatsApp PayLink
+                </div>
+<span class="font-caption text-[11px] text-tertiary font-medium">High EV Telematics Engagement</span>
+</div>
+</div>
+<!-- Context Details Strip -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col md:flex-row items-start md:items-center justify-between gap-space-sm text-body-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">car_repair</span>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-on-surface-variant font-medium">Prescribed Retention Bundle:</span>
+<span class="text-on-surface font-semibold">Free 24/7 EV Highway Roadside Assistance Bonus + Battery Health Certificate</span>
+</div>
+</div>
+<div class="text-on-surface-variant text-caption flex items-center gap-1 bg-surface-container-lowest px-space-xs py-1 rounded">
+<span class="material-symbols-outlined text-[14px] text-tertiary">check</span>
+<span>Clean Driving Telematics (Score: 92)</span>
+</div>
+</div>
+<!-- Action Controls Row -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<button class="h-9 px-space-md bg-tertiary hover:bg-tertiary-container text-on-tertiary rounded-lg font-body-sm font-semibold shadow-sm transition-all flex items-center gap-space-xs" onclick="openDispatchModal('Priya Patel', 'WhatsApp PayLink', '+91 98845 55102', 'EV Roadside Bonus + Battery Check')">
+<span class="material-symbols-outlined text-[16px]">send</span>
+<span>Send WhatsApp</span>
+</button>
+<button class="h-9 px-space-md bg-surface-container-lowest hover:bg-surface-container-high text-on-surface rounded-lg font-body-sm font-medium transition-all flex items-center gap-space-xs" onclick="openDispatchModal('Priya Patel', 'WhatsApp PayLink', '+91 98845 55102', 'Roadside Assistance Addon')">
+<span class="material-symbols-outlined text-[16px]">receipt_long</span>
+<span>Addon Details</span>
+</button>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="h-9 px-space-sm text-tertiary hover:bg-tertiary/10 rounded-lg font-caption text-caption font-semibold transition-colors flex items-center gap-1 mark-contacted-btn">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+<span>Mark Contacted</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Interactive Outreach Simulator & Analytics Dock (4 columns on desktop) -->
+<div class="xl:col-span-4 flex flex-col gap-space-md sticky top-20">
+<!-- Interactive Dispatch / Simulation Workbench Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">smart_toy</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Outreach Dispatcher</h2>
+</div>
+<span class="font-label-code text-caption text-tertiary bg-tertiary/10 px-space-xs py-0.5 rounded font-semibold">Live Mode</span>
+</div>
+<!-- Channel Selection Tabs -->
+<div class="flex flex-col gap-space-2xs">
+<label class="font-caption text-caption uppercase text-on-surface-variant font-semibold">Active Channel Carrier</label>
+<div class="grid grid-cols-4 gap-1 p-1 bg-surface-container-low rounded-lg" id="channelSelector">
+<button class="channel-btn py-1.5 px-1 rounded-md bg-primary text-on-primary font-caption text-caption font-semibold flex flex-col items-center justify-center gap-1 transition-all" data-channel="call" type="button">
+<span class="material-symbols-outlined text-[16px]">call</span>
+<span>Call</span>
+</button>
+<button class="channel-btn py-1.5 px-1 rounded-md text-on-surface-variant hover:text-on-surface font-caption text-caption font-medium flex flex-col items-center justify-center gap-1 transition-all" data-channel="whatsapp" type="button">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+<span>WhatsApp</span>
+</button>
+<button class="channel-btn py-1.5 px-1 rounded-md text-on-surface-variant hover:text-on-surface font-caption text-caption font-medium flex flex-col items-center justify-center gap-1 transition-all" data-channel="email" type="button">
+<span class="material-symbols-outlined text-[16px]">mail</span>
+<span>Email</span>
+</button>
+<button class="channel-btn py-1.5 px-1 rounded-md text-on-surface-variant hover:text-on-surface font-caption text-caption font-medium flex flex-col items-center justify-center gap-1 transition-all" data-channel="sms" type="button">
+<span class="material-symbols-outlined text-[16px]">sms</span>
+<span>SMS</span>
+</button>
+</div>
+</div>
+<!-- Form Fields -->
+<div class="flex flex-col gap-space-xs">
+<div>
+<label class="font-caption text-caption text-on-surface-variant font-medium block mb-1">Target Policyholder</label>
+<input class="w-full h-10 px-space-sm bg-surface-container-low text-on-surface rounded-lg font-body-sm focus:outline-none focus:ring-2 focus:ring-primary/20" id="targetCustomerInput" type="text" value="Rahul Sharma (#POL-1082)"/>
+</div>
+<div class="grid grid-cols-2 gap-space-xs">
+<div>
+<label class="font-caption text-caption text-on-surface-variant font-medium block mb-1">Execution Slot</label>
+<div class="relative">
+<select class="w-full h-10 pl-space-sm pr-8 bg-surface-container-low text-on-surface rounded-lg font-body-sm focus:outline-none focus:ring-2 focus:ring-primary/20 appearance-none">
+<option>Today, 4:30 PM (Peak)</option>
+<option>Immediate Dispatch</option>
+<option>Tomorrow, 10:00 AM</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2.5 text-on-surface-variant text-[16px] pointer-events-none">expand_more</span>
+</div>
+</div>
+<div>
+<label class="font-caption text-caption text-on-surface-variant font-medium block mb-1">Assigned Agent</label>
+<div class="relative">
+<select class="w-full h-10 pl-space-sm pr-8 bg-surface-container-low text-on-surface rounded-lg font-body-sm focus:outline-none focus:ring-2 focus:ring-primary/20 appearance-none">
+<option>Elena Rostova</option>
+<option>Rajeev K. (Sr.)</option>
+<option>AI Voice Bot (v4)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2.5 text-on-surface-variant text-[16px] pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Pitch / Script Preview Box -->
+<div>
+<div class="flex items-center justify-between mb-1">
+<label class="font-caption text-caption text-on-surface-variant font-medium">Personalized Script / Payload</label>
+<span class="font-caption text-[11px] text-primary cursor-pointer hover:underline" id="regenerateScriptBtn">Regenerate AI Pitch</span>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-lg font-body-sm text-on-surface flex flex-col gap-1 relative text-caption">
+<span class="text-on-surface font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-[14px]">psychology</span>
+                  Personalized Context Inject:
+                </span>
+<p class="text-on-surface-variant text-caption leading-relaxed" id="scriptText">
+                  "Hi Rahul, acknowledging our conversation regarding your recent claims resolution. As a valued 5-year patron, we have pre-approved an exclusive 12% Loyalty rate lock plus complimentary annual health scans. Can we finalize this now?"
+                </p>
+</div>
+</div>
+<button class="w-full h-10 mt-space-2xs bg-primary hover:bg-primary-container text-on-primary rounded-xl font-body-sm font-semibold shadow-sm transition-all flex items-center justify-center gap-space-xs" id="dispatchConfirmBtn" type="button">
+<span class="material-symbols-outlined text-[18px]">send</span>
+<span>Confirm &amp; Dispatch Outreach</span>
+</button>
+</div>
+</div>
+<!-- Channel Performance & SLA Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Channel Retention Velocity</h3>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">analytics</span>
+</div>
+<div class="flex flex-col gap-space-sm">
+<!-- Channel 1: WhatsApp -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between text-caption font-medium">
+<span class="flex items-center gap-1 text-on-surface font-semibold">
+<span class="material-symbols-outlined text-tertiary text-[16px]">chat</span>
+                  WhatsApp Conversational
+                </span>
+<span class="font-label-code text-tertiary font-bold">91% Open • 42% Retained</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full rounded-full" style="width: 88%"></div>
+</div>
+<span class="font-caption text-[11px] text-on-surface-variant">Avg payment speed: 2h 14m via instant checkout UPI</span>
+</div>
+<!-- Channel 2: Phone -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between text-caption font-medium">
+<span class="flex items-center gap-1 text-on-surface font-semibold">
+<span class="material-symbols-outlined text-primary text-[16px]">call</span>
+                  Advisor Direct Phone
+                </span>
+<span class="font-label-code text-primary font-bold">68% Retained (4.2m avg)</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 68%"></div>
+</div>
+<span class="font-caption text-[11px] text-on-surface-variant">Highest renewal lock for &gt;₹50k premium tiers</span>
+</div>
+<!-- Channel 3: Email -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between text-caption font-medium">
+<span class="flex items-center gap-1 text-on-surface font-semibold">
+<span class="material-symbols-outlined text-secondary text-[16px]">mail</span>
+                  Smart Email Audit
+                </span>
+<span class="font-label-code text-on-surface font-bold">48% Open • 22% CTR</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 48%"></div>
+</div>
+<span class="font-caption text-[11px] text-on-surface-variant">Best for multi-year floater lock policy statements</span>
+</div>
+</div>
+</div>
+<!-- AI Tip & Live Status Notice -->
+<div class="bg-surface-container-low rounded-xl p-space-md shadow-sm flex flex-col gap-space-xs relative overflow-hidden">
+<div class="flex items-center gap-space-xs text-primary">
+<span class="material-symbols-outlined text-[18px]">lightbulb</span>
+<span class="font-caption text-caption font-bold uppercase tracking-wider">AI Retention Signal</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">
+            High-risk policyholders contacted between <strong class="text-primary font-semibold">4:00 PM – 6:00 PM</strong> have demonstrated a <strong class="text-tertiary font-semibold">28% higher renewal rate</strong> this cycle.
+          </p>
+<div class="mt-space-2xs pt-space-xs flex items-center justify-between font-caption text-caption text-on-surface-variant">
+<span>14 of 38 planned completed</span>
+<span class="font-label-code text-primary font-semibold">Live Sync 14:02:18</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Filter tabs logic
+  const filterTabs = document.querySelectorAll('.filter-tab');
+  const queueCards = document.querySelectorAll('[data-priority]');
+
+  filterTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      filterTabs.forEach(t => {
+        t.classList.remove('bg-primary', 'text-on-primary');
+        t.classList.add('text-on-surface-variant', 'hover:bg-surface-container');
+      });
+      tab.classList.remove('text-on-surface-variant', 'hover:bg-surface-container');
+      tab.classList.add('bg-primary', 'text-on-primary');
+
+      const filterVal = tab.getAttribute('data-filter');
+      queueCards.forEach(card => {
+        if (filterVal === 'all') {
+          card.style.display = 'block';
+        } else if (filterVal === 'urgent' && card.getAttribute('data-priority') === 'urgent') {
+          card.style.display = 'block';
+        } else if (filterVal === 'high' && card.getAttribute('data-priority') === 'high') {
+          card.style.display = 'block';
+        } else if (filterVal === 'medium' && card.getAttribute('data-priority') === 'medium') {
+          card.style.display = 'block';
+        } else if (filterVal === 'completed') {
+          card.style.display = 'none';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Channel Selector in right sidebar
+  const channelBtns = document.querySelectorAll('.channel-btn');
+  channelBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      channelBtns.forEach(b => {
+        b.classList.remove('bg-primary', 'text-on-primary', 'font-semibold');
+        b.classList.add('text-on-surface-variant', 'hover:text-on-surface', 'font-medium');
+      });
+      btn.classList.add('bg-primary', 'text-on-primary', 'font-semibold');
+      btn.classList.remove('text-on-surface-variant', 'hover:text-on-surface', 'font-medium');
+    });
+  });
+
+  // Populate Dispatch Workbench
+  window.openDispatchModal = function(name, channel, contact, offer) {
+    const targetInput = document.getElementById('targetCustomerInput');
+    const scriptEl = document.getElementById('scriptText');
+    if (targetInput) targetInput.value = `${name} (${contact})`;
+    if (scriptEl) {
+      scriptEl.textContent = `"Hello ${name.split(' ')[0]}, this is InsureRenew regarding your upcoming policy renewal. We have specially authorized the ${offer} to lock in your rates. May I confirm this on your behalf today?"`;
+    }
+    // Highlight dispatch button
+    const dispatchBtn = document.getElementById('dispatchConfirmBtn');
+    if (dispatchBtn) {
+      dispatchBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      dispatchBtn.classList.add('scale-95');
+      setTimeout(() => dispatchBtn.classList.remove('scale-95'), 180);
+    }
+  };
+
+  // Mark Contacted micro-interaction
+  document.querySelectorAll('.mark-contacted-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const card = e.currentTarget.closest('[data-priority]');
+      if (card) {
+        card.style.transition = 'all 0.3s ease';
+        card.style.opacity = '0.5';
+        card.style.transform = 'translateX(6px)';
+        e.currentTarget.innerHTML = '<span class="material-symbols-outlined text-[18px]">verified</span> Contacted!';
+        e.currentTarget.classList.remove('text-tertiary');
+        e.currentTarget.classList.add('text-primary');
+      }
+    });
+  });
+
+  // Dispatch confirm
+  const confirmBtn = document.getElementById('dispatchConfirmBtn');
+  if (confirmBtn) {
+    confirmBtn.addEventListener('click', () => {
+      const originalText = confirmBtn.innerHTML;
+      confirmBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span> Dispatching...';
+      confirmBtn.disabled = true;
+      setTimeout(() => {
+        confirmBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">check_circle</span> Dispatched Successfully!';
+        confirmBtn.classList.remove('bg-primary');
+        confirmBtn.classList.add('bg-tertiary');
+        setTimeout(() => {
+          confirmBtn.innerHTML = originalText;
+          confirmBtn.classList.remove('bg-tertiary');
+          confirmBtn.classList.add('bg-primary');
+          confirmBtn.disabled = false;
+        }, 2000);
+      }, 700);
+    });
+  }
+
+  // Batch dispatch
+  const batchBtn = document.getElementById('batchDispatchBtn');
+  if (batchBtn) {
+    batchBtn.addEventListener('click', () => {
+      batchBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span> Processing Queue...';
+      setTimeout(() => {
+        batchBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">done_all</span> 4 Urgent Reminders Sent!';
+        setTimeout(() => {
+          batchBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">bolt</span> Batch Dispatch All Urgent (4)';
+        }, 2500);
+      }, 1000);
+    });
+  }
+</script></main></div></body></html>

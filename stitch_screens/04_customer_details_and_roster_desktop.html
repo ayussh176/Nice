@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_dashboard" name="shell-type"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;600&amp;family=Manrope:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-fixed": "#6ffbbe",
+            "on-secondary-container": "#5c647a",
+            "tertiary-fixed-dim": "#4edea3",
+            "on-secondary-fixed": "#131b2e",
+            "surface-container-highest": "#d3e4fe",
+            "surface-variant": "#d3e4fe",
+            "on-background": "#0b1c30",
+            "on-primary": "#ffffff",
+            "on-error": "#ffffff",
+            "on-tertiary-fixed-variant": "#005236",
+            "primary-fixed": "#dbe1ff",
+            "surface-container-low": "#eff4ff",
+            "surface": "#f8f9ff",
+            "on-error-container": "#93000a",
+            "on-tertiary-fixed": "#002113",
+            "inverse-primary": "#b4c5ff",
+            "primary": "#004ac6",
+            "outline": "#737686",
+            "on-secondary-fixed-variant": "#3f465c",
+            "on-surface-variant": "#434655",
+            "on-tertiary": "#ffffff",
+            "secondary": "#565e74",
+            "on-primary-container": "#eeefff",
+            "primary-fixed-dim": "#b4c5ff",
+            "surface-container-lowest": "#ffffff",
+            "surface-bright": "#f8f9ff",
+            "on-secondary": "#ffffff",
+            "on-primary-fixed": "#00174b",
+            "surface-dim": "#cbdbf5",
+            "on-primary-fixed-variant": "#003ea8",
+            "on-tertiary-container": "#bdffdb",
+            "surface-container-high": "#dce9ff",
+            "tertiary-container": "#007d55",
+            "error-container": "#ffdad6",
+            "secondary-container": "#dae2fd",
+            "surface-container": "#e5eeff",
+            "inverse-surface": "#213145",
+            "secondary-fixed-dim": "#bec6e0",
+            "tertiary": "#006242",
+            "surface-tint": "#0053db",
+            "error": "#ba1a1a",
+            "primary-container": "#2563eb",
+            "secondary-fixed": "#dae2fd",
+            "background": "#f8f9ff",
+            "on-surface": "#0b1c30",
+            "inverse-on-surface": "#eaf1ff",
+            "outline-variant": "#c3c6d7"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "space-md": "0.75rem",
+            "space-sm": "0.5rem",
+            "space-xl": "2rem",
+            "gutter-desktop": "1.5rem",
+            "margin": "1rem",
+            "margin-tablet": "1.5rem",
+            "gutter": "1rem",
+            "margin-desktop": "2rem",
+            "space-base": "1rem",
+            "space-xs": "0.25rem",
+            "space-2xs": "0.125rem",
+            "space-2xl": "3rem"
+          },
+          "fontFamily": {
+            "body-md": ["Inter"],
+            "display": ["Manrope"],
+            "body-sm": ["Inter"],
+            "display-mobile": ["Manrope"],
+            "headline-sm": ["Manrope"],
+            "caption": ["Inter"],
+            "metric-stat": ["JetBrains Mono"],
+            "label-code": ["JetBrains Mono"],
+            "headline-lg-mobile": ["Manrope"],
+            "headline-lg": ["Manrope"],
+            "body-lg": ["Inter"],
+            "headline-md": ["Manrope"]
+          },
+          "fontSize": {
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "display": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+            "display-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "caption": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "metric-stat": ["20px", { "lineHeight": "24px", "fontWeight": "600" }],
+            "label-code": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+            "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-surface font-body-md text-on-surface">
+<!-- Interactive Feedback Toast -->
+<div class="fixed top-20 right-8 z-50 transform translate-y-[-100px] opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-space-sm px-space-lg py-space-md rounded-xl bg-inverse-surface text-inverse-on-surface shadow-2xl border border-outline-variant/30" id="toastNotification">
+<span class="material-symbols-outlined text-tertiary-fixed text-[22px]">check_circle</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-body-md text-inverse-on-surface font-semibold" id="toastTitle">Intervention Deployed</span>
+<span class="font-caption text-caption text-inverse-on-surface/80" id="toastMessage">12% Retention discount voucher generated for #POL-1082</span>
+</div>
+</div>
+<!-- Left Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between">
+<div class="flex flex-col">
+<div class="h-16 px-space-base flex items-center gap-space-sm bg-surface-container-lowest">
+<img alt="InsureRenew logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Vl9azc3tREBsI2NDlROJUht5acO_yrIw6J7Kj7afG11mitgEeVx6Fx0wCP67xofn5PzOnnqPHFdptx4ECgu95D63zc4urRubixZArHWE_X97JcV_u_YISLoK62BWs7BYIDG7e5QFV-ZPD89WCQfl0dOc6q1l0TpOJuQo1NFJlc6Rc81M6AZ6eavao8nGMbk11ZIuoD-knEBV99CmS7dxSzIp8FRvtP1cxq9_6Nu9p7B9s4HVcA0R3J8s_8"/>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface leading-tight">InsureRenew</span>
+<span class="font-caption text-caption text-on-surface-variant leading-tight">Retention &amp; Risk Console</span>
+</div>
+</div>
+<div class="px-space-base py-space-sm">
+<div class="p-space-sm rounded-xl bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">verified_user</span>
+<span class="font-caption text-caption text-on-surface font-semibold">Underwriting Live</span>
+</div>
+<span class="font-label-code text-label-code text-tertiary-container bg-surface-container-lowest px-space-xs py-space-2xs rounded-lg font-bold">AA-Tier</span>
+</div>
+</div>
+<nav class="flex flex-col gap-space-xs px-space-base mt-space-sm" data-active-classes="bg-primary-container text-on-primary font-semibold shadow-[0_1px_4px_rgba(37,99,235,0.2)]">
+<a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" href="#">Overview</a>
+<a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" href="#">Portfolio &amp; Renewals</a>
+<a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" href="#">Lapse Risk Analysis</a>
+<a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" href="#">Renewal Offers</a>
+<a class="flex items-center px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-md text-body-md" href="#">Smart Reminders</a>
+<a aria-current="page" class="flex items-center px-space-md py-space-sm rounded-xl transition-all bg-primary-container text-on-primary font-semibold shadow-[0_1px_4px_rgba(37,99,235,0.2)]" href="#">Customer Details</a>
+</nav>
+</div>
+<div class="p-space-base flex flex-col gap-space-sm bg-surface-container-lowest">
+<div class="p-space-md bg-surface-container-low rounded-xl flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-caption text-caption text-on-surface-variant">Target Retention</span>
+<span class="font-metric-stat text-metric-stat text-primary">94.2%</span>
+</div>
+<span class="material-symbols-outlined text-tertiary text-[24px]">trending_up</span>
+</div>
+<div class="flex items-center justify-between px-space-xs text-on-surface-variant font-caption text-caption">
+<span>Retention Node: v2.4</span>
+<span class="inline-block w-2 h-2 rounded-full bg-tertiary-container"></span>
+</div>
+</div>
+</aside>
+<!-- Main View Area -->
+<div class="pl-64">
+<!-- Top Header -->
+<header class="fixed top-0 left-64 right-0 h-16 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 px-space-lg flex items-center justify-between">
+<div class="flex items-center gap-space-base flex-1 max-w-xl">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+<input class="w-full h-10 pl-10 pr-space-base rounded-xl bg-surface-container-lowest text-on-surface font-body-sm text-body-sm shadow-[0_1px_3px_0_rgba(15,23,42,0.04)] focus:outline-none focus:ring-2 focus:ring-primary/20 placeholder:text-outline" placeholder="Search policy ID, customer name, VIN, or agent code..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="hidden lg:flex items-center gap-space-xs bg-surface-container-lowest px-space-md h-10 rounded-xl shadow-[0_1px_3px_0_rgba(15,23,42,0.04)]">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">calendar_today</span>
+<span class="font-caption text-caption text-on-surface font-medium">Q3 Fiscal Cycle (Oct - Dec)</span>
+<span class="material-symbols-outlined text-outline text-[16px]">expand_more</span>
+</div>
+<button class="relative p-space-sm rounded-xl bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors shadow-[0_1px_3px_0_rgba(15,23,42,0.04)]" type="button">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-error text-on-error font-label-code text-[10px] font-bold">5</span>
+</button>
+<div class="flex items-center gap-space-md pl-space-xs">
+<div class="hidden md:flex flex-col text-right">
+<span class="font-headline-sm text-body-md text-on-surface font-semibold leading-tight">Elena Rostova</span>
+<span class="font-caption text-caption text-on-surface-variant leading-tight">Chief Retention Officer</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Stream -->
+<main class="w-full pt-16 bg-surface min-h-screen">
+<div class="p-space-lg lg:p-space-xl flex flex-col gap-space-lg max-w-[1680px] mx-auto w-full">
+<!-- Top Breadcrumb & Status Telemetry -->
+<div class="flex items-center justify-between flex-wrap gap-space-sm">
+<nav class="flex items-center gap-space-xs text-on-surface-variant font-caption text-caption">
+<span class="hover:text-primary cursor-pointer transition-colors">Customer Directory</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="hover:text-primary cursor-pointer transition-colors">Retention Workbench</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-on-surface font-semibold bg-surface-container px-space-xs py-space-2xs rounded-lg">Roster &amp; Detailed Dossier</span>
+</nav>
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs font-caption text-caption text-on-surface-variant bg-surface-container-low px-space-md py-space-xs rounded-full">
+<span class="w-2 h-2 rounded-full bg-error animate-ping"></span>
+<span class="font-label-code text-label-code text-on-surface font-semibold">18 CUSTOMERS REQUIRING ATTENTION</span>
+</div>
+<span class="font-caption text-caption text-outline">Underwriter Audit Ref: #BLR-RET-9941</span>
+</div>
+</div>
+<!-- SECTION 1: MASTER CUSTOMER DIRECTORY TABLE (Row-wise View) -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-container flex flex-col overflow-hidden">
+<!-- Table Header / Toolbar -->
+<div class="p-space-md lg:p-space-lg bg-surface-container-lowest border-b border-surface-container flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div>
+<h1 class="font-headline-md text-headline-sm lg:text-headline-md text-on-surface font-bold tracking-tight">Customer Retention Directory</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Select any customer row below to inspect risk telemetry, AI prescriptive intervention, and lifecycle audits.</p>
+</div>
+<!-- Controls: Search, Filters, Export -->
+<div class="flex flex-wrap items-center gap-space-xs sm:gap-space-sm">
+<!-- Search in table -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-space-sm top-1/2 -translate-y-1/2 text-outline text-[16px]">search</span>
+<input class="h-9 pl-8 pr-3 text-body-sm bg-surface-container-low rounded-xl text-on-surface placeholder:text-outline border-none focus:ring-2 focus:ring-primary/20 w-44 sm:w-56" placeholder="Filter customer, policy..." type="text"/>
+</div>
+<!-- Filter: Risk Tier -->
+<div class="flex items-center gap-1 bg-surface-container-low px-space-sm h-9 rounded-xl text-caption">
+<span class="text-on-surface-variant font-medium">Risk:</span>
+<select class="bg-transparent text-on-surface font-semibold focus:outline-none border-none p-0 pr-4 text-body-sm cursor-pointer">
+<option selected="">All Tiers</option>
+<option>High Risk (70+)</option>
+<option>Medium Risk (40-69)</option>
+<option>Low Risk (&lt;40)</option>
+</select>
+</div>
+<!-- Filter: Line of Business -->
+<div class="flex items-center gap-1 bg-surface-container-low px-space-sm h-9 rounded-xl text-caption">
+<span class="text-on-surface-variant font-medium">LOB:</span>
+<select class="bg-transparent text-on-surface font-semibold focus:outline-none border-none p-0 pr-4 text-body-sm cursor-pointer">
+<option selected="">All Products</option>
+<option>Health Shield</option>
+<option>Motor Comprehensive</option>
+<option>Term Life Protection</option>
+</select>
+</div>
+<!-- Export Button -->
+<button class="h-9 px-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface font-body-sm text-body-sm font-semibold flex items-center gap-1 transition-colors" onclick="triggerAction('Exported 6 filtered policyholder dossiers to CSV')">
+<span class="material-symbols-outlined text-[16px] text-primary">download</span>
+<span class="hidden sm:inline">Export</span>
+</button>
+</div>
+</div>
+<!-- Roster Table -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left font-body-sm text-body-sm border-collapse min-w-[980px]">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-caption text-caption border-b border-surface-container">
+<th class="py-3 px-4 font-semibold">Customer &amp; Policy ID</th>
+<th class="py-3 px-4 font-semibold">Plan / Line of Business</th>
+<th class="py-3 px-4 font-semibold">Annual Premium</th>
+<th class="py-3 px-4 font-semibold">Renewal Due Date</th>
+<th class="py-3 px-4 font-semibold">Lapse Risk Score</th>
+<th class="py-3 px-4 font-semibold">Payment / Grievance Status</th>
+<th class="py-3 px-4 font-semibold text-center">Inspect</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container text-on-surface">
+<!-- ROW 1 (Active / Selected Customer - Rahul Sharma) -->
+<tr class="bg-primary/5 hover:bg-primary/10 transition-colors cursor-pointer border-l-4 border-l-primary group" id="row-rahul" onclick="selectCustomer('rahul')">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="relative shrink-0">
+<div class="w-10 h-10 rounded-full bg-primary-fixed text-primary font-headline-sm text-body-md font-bold flex items-center justify-center shadow-sm">
+                          RS
+                        </div>
+<span class="absolute -bottom-0.5 -right-0.5 bg-surface-container-lowest p-0.5 rounded-full shadow">
+<span class="material-symbols-outlined text-[14px] text-tertiary" style="font-variation-settings: 'FILL' 1;">verified</span>
+</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-body-md text-on-surface font-semibold group-hover:text-primary transition-colors">Rahul Sharma</span>
+<span class="bg-surface-container-high text-primary font-label-code text-[11px] px-1.5 py-0.5 rounded font-bold">Platinum</span>
+</div>
+<span class="font-label-code text-caption text-outline">#POL-1082 • Bengaluru, KA</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">health_and_safety</span>
+<span class="font-medium text-on-surface">Health Comprehensive Shield</span>
+</div>
+<span class="font-caption text-on-surface-variant text-[11px]">Sum Insured: ₹10,00,000</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-label-code font-bold text-on-surface">₹28,500</span>
+<span class="text-error font-caption text-[11px] font-medium">+12% hike applied</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-semibold text-error">Oct 28, 2025</span>
+<span class="font-caption text-[11px] text-error font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-ping"></span> In 3 Days (Critical)
+                      </span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-error-container/50 text-error font-metric-stat text-body-sm font-bold flex items-center justify-center">
+                        78
+                      </div>
+<div class="flex flex-col">
+<span class="bg-error text-on-error font-caption text-[10px] font-bold px-1.5 py-0.2 rounded uppercase">High Risk</span>
+<span class="font-caption text-[10px] text-error">+24% (14d)</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col gap-0.5">
+<span class="bg-error-container/50 text-error text-[11px] font-medium px-2 py-0.5 rounded w-max">3 Late Pays / Claim Dispute</span>
+<span class="font-caption text-on-surface-variant text-[11px]">Grievance #CLM-901 active</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-primary text-on-primary shadow-sm">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</span>
+</td>
+</tr>
+<!-- ROW 2: Sunita Rao -->
+<tr class="hover:bg-surface-container-low/60 transition-colors cursor-pointer border-l-4 border-l-transparent group" id="row-sunita" onclick="selectCustomer('sunita')">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface font-headline-sm text-body-md font-bold flex items-center justify-center">
+                        SR
+                      </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-body-md text-on-surface font-semibold group-hover:text-primary transition-colors">Sunita Rao</span>
+<span class="bg-surface-container-low text-on-surface-variant font-label-code text-[11px] px-1.5 py-0.5 rounded">Gold</span>
+</div>
+<span class="font-label-code text-caption text-outline">#POL-1044 • Mumbai, MH</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[18px]">directions_car</span>
+<span class="font-medium text-on-surface">Motor Zero Depreciation</span>
+</div>
+<span class="font-caption text-on-surface-variant text-[11px]">Sedan EV • 2022</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-label-code font-bold text-on-surface">₹19,200</span>
+<span class="text-on-surface-variant font-caption text-[11px]">No NCB discount</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-semibold text-error">Oct 30, 2025</span>
+<span class="font-caption text-[11px] text-error font-medium">In 5 Days</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-error-container/50 text-error font-metric-stat text-body-sm font-bold flex items-center justify-center">
+                        88
+                      </div>
+<div class="flex flex-col">
+<span class="bg-error text-on-error font-caption text-[10px] font-bold px-1.5 py-0.2 rounded uppercase">Critical</span>
+<span class="font-caption text-[10px] text-error">+31% (7d)</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col gap-0.5">
+<span class="bg-secondary/15 text-secondary text-[11px] font-medium px-2 py-0.5 rounded w-max">Competitor Quote Solicited</span>
+<span class="font-caption text-on-surface-variant text-[11px]">AutoPay revoked</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="material-symbols-outlined text-outline text-[18px] group-hover:text-primary">chevron_right</span>
+</td>
+</tr>
+<!-- ROW 3: Amit Verma -->
+<tr class="hover:bg-surface-container-low/60 transition-colors cursor-pointer border-l-4 border-l-transparent group" id="row-amit" onclick="selectCustomer('amit')">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface font-headline-sm text-body-md font-bold flex items-center justify-center">
+                        AV
+                      </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-body-md text-on-surface font-semibold group-hover:text-primary transition-colors">Amit Verma</span>
+<span class="bg-surface-container-low text-on-surface-variant font-label-code text-[11px] px-1.5 py-0.5 rounded">Silver</span>
+</div>
+<span class="font-label-code text-caption text-outline">#POL-1102 • Gurgaon, HR</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">family_restroom</span>
+<span class="font-medium text-on-surface">Term Life 360 Shield</span>
+</div>
+<span class="font-caption text-on-surface-variant text-[11px]">Sum Insured: ₹1.5 Cr</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-label-code font-bold text-on-surface">₹34,800</span>
+<span class="text-tertiary font-caption text-[11px]">Level Premium</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-semibold text-secondary">Nov 04, 2025</span>
+<span class="font-caption text-[11px] text-on-surface-variant font-medium">In 10 Days</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-error-container/40 text-error font-metric-stat text-body-sm font-bold flex items-center justify-center">
+                        74
+                      </div>
+<div class="flex flex-col">
+<span class="bg-error text-on-error font-caption text-[10px] font-bold px-1.5 py-0.2 rounded uppercase">High Risk</span>
+<span class="font-caption text-[10px] text-error">Unresponsive</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col gap-0.5">
+<span class="bg-error-container/40 text-error text-[11px] font-medium px-2 py-0.5 rounded w-max">2 Bounced Direct Debits</span>
+<span class="font-caption text-on-surface-variant text-[11px]">NACH Mandate Failed</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="material-symbols-outlined text-outline text-[18px] group-hover:text-primary">chevron_right</span>
+</td>
+</tr>
+<!-- ROW 4: Priya Patel -->
+<tr class="hover:bg-surface-container-low/60 transition-colors cursor-pointer border-l-4 border-l-transparent group" id="row-priya" onclick="selectCustomer('priya')">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface font-headline-sm text-body-md font-bold flex items-center justify-center">
+                        PP
+                      </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-body-md text-on-surface font-semibold group-hover:text-primary transition-colors">Priya Patel</span>
+<span class="bg-surface-container-high text-primary font-label-code text-[11px] px-1.5 py-0.5 rounded font-bold">Platinum</span>
+</div>
+<span class="font-label-code text-caption text-outline">#POL-1104 • Ahmedabad, GJ</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">health_and_safety</span>
+<span class="font-medium text-on-surface">Health Care Family Floater</span>
+</div>
+<span class="font-caption text-on-surface-variant text-[11px]">4 Members Covered</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-label-code font-bold text-on-surface">₹41,200</span>
+<span class="text-tertiary font-caption text-[11px]">Loyalty 5% eligible</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">Nov 14, 2025</span>
+<span class="font-caption text-[11px] text-on-surface-variant">In 20 Days</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high text-secondary font-metric-stat text-body-sm font-bold flex items-center justify-center">
+                        48
+                      </div>
+<div class="flex flex-col">
+<span class="bg-secondary text-on-secondary font-caption text-[10px] font-bold px-1.5 py-0.2 rounded uppercase">Moderate</span>
+<span class="font-caption text-[10px] text-secondary">Portal Engaged</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col gap-0.5">
+<span class="bg-tertiary/15 text-tertiary text-[11px] font-medium px-2 py-0.5 rounded w-max">Clean Payment Track</span>
+<span class="font-caption text-on-surface-variant text-[11px]">Viewed renewal quote 2x</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="material-symbols-outlined text-outline text-[18px] group-hover:text-primary">chevron_right</span>
+</td>
+</tr>
+<!-- ROW 5: Rajesh Khanna -->
+<tr class="hover:bg-surface-container-low/60 transition-colors cursor-pointer border-l-4 border-l-transparent group" id="row-rajesh" onclick="selectCustomer('rajesh')">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface font-headline-sm text-body-md font-bold flex items-center justify-center">
+                        RK
+                      </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-body-md text-on-surface font-semibold group-hover:text-primary transition-colors">Rajesh Khanna</span>
+<span class="bg-surface-container-low text-on-surface-variant font-label-code text-[11px] px-1.5 py-0.5 rounded">Silver</span>
+</div>
+<span class="font-label-code text-caption text-outline">#POL-1205 • Delhi, NCR</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[18px]">directions_car</span>
+<span class="font-medium text-on-surface">Commercial Fleet Shield</span>
+</div>
+<span class="font-caption text-on-surface-variant text-[11px]">3 Light Vehicles</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-label-code font-bold text-on-surface">₹58,900</span>
+<span class="text-error font-caption text-[11px] font-medium">+18% hike</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-semibold text-secondary">Nov 02, 2025</span>
+<span class="font-caption text-[11px] text-error font-medium">In 8 Days</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-error-container/40 text-error font-metric-stat text-body-sm font-bold flex items-center justify-center">
+                        69
+                      </div>
+<div class="flex flex-col">
+<span class="bg-secondary text-on-secondary font-caption text-[10px] font-bold px-1.5 py-0.2 rounded uppercase">Elevated</span>
+<span class="font-caption text-[10px] text-error">+18% price sensitivity</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col gap-0.5">
+<span class="bg-secondary/15 text-secondary text-[11px] font-medium px-2 py-0.5 rounded w-max">1 Delay (15 Days)</span>
+<span class="font-caption text-on-surface-variant text-[11px]">Requested fleet discount</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="material-symbols-outlined text-outline text-[18px] group-hover:text-primary">chevron_right</span>
+</td>
+</tr>
+<!-- ROW 6: Vikram Malhotra -->
+<tr class="hover:bg-surface-container-low/60 transition-colors cursor-pointer border-l-4 border-l-transparent group" id="row-vikram" onclick="selectCustomer('vikram')">
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface font-headline-sm text-body-md font-bold flex items-center justify-center">
+                        VM
+                      </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-body-md text-on-surface font-semibold group-hover:text-primary transition-colors">Vikram Malhotra</span>
+<span class="bg-surface-container-high text-primary font-label-code text-[11px] px-1.5 py-0.5 rounded font-bold">Platinum</span>
+</div>
+<span class="font-label-code text-caption text-outline">#POL-1192 • Hyderabad, TS</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-tertiary text-[18px]">verified</span>
+<span class="font-medium text-on-surface">Super Top-up Health</span>
+</div>
+<span class="font-caption text-on-surface-variant text-[11px]">Deductible: ₹5L • Base: ₹25L</span>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-label-code font-bold text-on-surface">₹14,500</span>
+<span class="text-tertiary font-caption text-[11px]">AutoPay Confirmed</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface">Nov 28, 2025</span>
+<span class="font-caption text-[11px] text-tertiary font-medium">In 34 Days</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-tertiary/15 text-tertiary font-metric-stat text-body-sm font-bold flex items-center justify-center">
+                        22
+                      </div>
+<div class="flex flex-col">
+<span class="bg-tertiary text-on-tertiary font-caption text-[10px] font-bold px-1.5 py-0.2 rounded uppercase">Low Risk</span>
+<span class="font-caption text-[10px] text-tertiary">High Affinity</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<div class="flex flex-col gap-0.5">
+<span class="bg-tertiary/15 text-tertiary text-[11px] font-medium px-2 py-0.5 rounded w-max">100% On-time</span>
+<span class="font-caption text-on-surface-variant text-[11px]">Zero disputes across 4 yrs</span>
+</div>
+</td>
+<td class="py-3.5 px-4 text-center">
+<span class="material-symbols-outlined text-outline text-[18px] group-hover:text-primary">chevron_right</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer Pagination & Summary -->
+<div class="px-space-md py-space-sm bg-surface-container-low border-t border-surface-container flex items-center justify-between text-caption text-on-surface-variant">
+<span>Showing 6 of 18 priority policies needing intervention</span>
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1 rounded bg-surface-container-lowest border border-surface-container text-on-surface hover:bg-surface-container font-medium">Previous</button>
+<span class="px-2 font-semibold text-primary">Page 1 of 3</span>
+<button class="px-2.5 py-1 rounded bg-surface-container-lowest border border-surface-container text-on-surface hover:bg-surface-container font-medium">Next</button>
+</div>
+</div>
+</div>
+<!-- SECTION 2: SELECTED CUSTOMER DOSSIER & WORKBENCH -->
+<div class="flex flex-col gap-space-md" id="customer-dossier-wrapper">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">badge</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Active Customer Inspection Dossier</h2>
+</div>
+<span class="text-caption text-on-surface-variant">Click any table row above to switch inspected policy</span>
+</div>
+<!-- Dossier Hero Surface -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg border-l-4 border-l-error">
+<!-- Left: Customer Summary Entity -->
+<div class="flex items-start md:items-center gap-space-lg flex-1">
+<div class="relative shrink-0">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center text-primary font-headline-md text-headline-md font-bold shadow-inner">
+                  RS
+                </div>
+<span class="absolute -bottom-1 -right-1 bg-surface-container-lowest p-0.5 rounded-full shadow">
+<span class="material-symbols-outlined text-[20px] text-tertiary" style="font-variation-settings: 'FILL' 1;">verified</span>
+</span>
+</div>
+<div class="flex flex-col gap-space-2xs min-w-0">
+<div class="flex items-center gap-space-sm flex-wrap">
+<h1 class="font-headline-lg text-headline-md lg:text-headline-lg text-on-surface tracking-tight truncate">Rahul Sharma</h1>
+<span class="bg-surface-container-high text-primary font-label-code text-label-code px-space-sm py-0.5 rounded-full font-semibold">
+                    Platinum Tier
+                  </span>
+<span class="bg-surface-container-low text-on-surface-variant font-caption text-caption px-space-sm py-0.5 rounded-full">
+                    5 Years Tenure (Since Oct 2019)
+                  </span>
+</div>
+<div class="flex items-center gap-space-md flex-wrap text-on-surface-variant font-body-sm text-body-sm mt-space-2xs">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-outline">location_on</span> Bengaluru, KA
+                  </span>
+<span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-outline">person</span> Age 42 • Salaried Tech Lead
+                  </span>
+<span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-outline">call</span> +91 98450 •••••
+                  </span>
+</div>
+<!-- Key Policy Bar Details -->
+<div class="flex items-center gap-space-base flex-wrap font-caption text-caption mt-space-xs text-on-surface">
+<div class="flex items-center gap-1.5 bg-surface-container-low px-space-sm py-space-2xs rounded-lg">
+<span class="material-symbols-outlined text-primary text-[16px]">health_and_safety</span>
+<span class="font-semibold text-primary">Health Comprehensive Shield</span>
+<span class="font-label-code text-label-code text-outline">#POL-1082</span>
+</div>
+<span class="text-on-surface-variant">Annual Premium: <strong class="text-on-surface font-semibold font-label-code text-label-code">₹28,500</strong> <span class="text-error font-medium text-[11px]">(+12% hike)</span></span>
+<span class="text-on-surface-variant">Renewal Date: <strong class="text-error font-semibold font-label-code text-label-code">Oct 28, 2025</strong></span>
+</div>
+</div>
+</div>
+<!-- Right: Risk Score Gauge & Action CTAs Strip -->
+<div class="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-start sm:items-center gap-space-lg lg:border-l lg:pl-space-lg lg:border-surface-container shrink-0">
+<!-- Risk Gauge Mini Dial -->
+<div class="flex items-center gap-space-md bg-error-container/40 p-space-sm px-space-md rounded-xl">
+<div class="relative w-14 h-14 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90 transform" viewbox="0 0 36 36">
+<path class="text-surface-container-high" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.5"></path>
+<path class="text-error" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="78, 100" stroke-linecap="round" stroke-width="3.5"></path>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-metric-stat text-label-code font-bold text-on-error-container leading-none">78</span>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-error">warning</span>
+<span class="font-headline-sm text-label-code text-on-error-container uppercase tracking-wider font-bold">HIGH RISK</span>
+</div>
+<span class="font-caption text-[11px] text-on-error-container/80">Velocity Index: +24% (14d)</span>
+</div>
+</div>
+<!-- Quick Action Buttons -->
+<div class="flex flex-wrap items-center gap-space-xs">
+<button class="h-10 px-space-md rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface font-body-sm text-body-sm font-semibold flex items-center gap-space-xs transition-all shadow-sm active:scale-95" onclick="triggerAction('Initiated WhatsApp outreach with customized renewal link to +91 98450 •••••')" title="Direct WhatsApp / Call Contact">
+<span class="material-symbols-outlined text-[18px] text-tertiary">chat</span>
+<span>WhatsApp / Call</span>
+</button>
+<button class="h-10 px-space-md rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface font-body-sm text-body-sm font-semibold flex items-center gap-space-xs transition-all shadow-sm active:scale-95" onclick="triggerAction('Urgent SMS &amp; Email renewal notification dispatched')">
+<span class="material-symbols-outlined text-[18px] text-primary">schedule_send</span>
+<span>Send Smart Ping</span>
+</button>
+<button class="h-10 px-space-md rounded-xl bg-primary text-on-primary hover:bg-primary-container font-body-sm text-body-sm font-semibold flex items-center gap-space-xs transition-all shadow-sm active:scale-95" onclick="triggerAction('12% Loyalty Discount roll-back applied to policy cart.')">
+<span class="material-symbols-outlined text-[18px]">percent</span>
+<span>Apply 12% Loyalty</span>
+</button>
+<button class="h-10 px-space-md rounded-xl bg-tertiary text-on-tertiary hover:bg-tertiary-container font-body-sm text-body-sm font-semibold flex items-center gap-space-xs transition-all shadow-sm active:scale-95" onclick="triggerAction('Policy #POL-1082 manually updated to RENEWED for cycle 2025-2026.')">
+<span class="material-symbols-outlined text-[18px]">task_alt</span>
+<span>Mark Renewed</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 2-Column Responsive Split Architecture (Left: ~38%, Right: ~62%) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT COLUMN: Explainable Risk Attribution & AI Prescriptive Strategy (~38%) -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<!-- Card 1: Explainable Risk Diagnostics -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-base">
+<div class="flex items-center justify-between pb-space-xs border-b border-surface-container">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-error text-[22px]">analytics</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Explainable Risk Diagnostics</h2>
+</div>
+<span class="font-label-code text-label-code text-error bg-error-container/50 px-space-xs py-space-2xs rounded-lg font-bold">
+                    Lapse Hazard: 78%
+                  </span>
+</div>
+<!-- Overall Probability Bar Visual -->
+<div class="flex flex-col gap-space-2xs bg-surface-container-low p-space-md rounded-xl">
+<div class="flex justify-between items-center text-on-surface font-caption text-caption">
+<span>Predictive Model Ensemble (XGBoost + ChurnFormer)</span>
+<span class="font-label-code text-label-code font-bold text-error">78.4% LAPSE RISK</span>
+</div>
+<div class="w-full h-3 rounded-full bg-surface-container-highest overflow-hidden flex">
+<div class="h-full bg-gradient-to-r from-secondary to-error rounded-full transition-all duration-700" style="width: 78%;"></div>
+</div>
+<div class="flex justify-between text-[11px] text-on-surface-variant font-caption">
+<span>Benchmark baseline: 21%</span>
+<span class="text-error font-medium">Deviation: +57% above median</span>
+</div>
+</div>
+<!-- Factor Attribution Stack -->
+<div class="flex flex-col gap-space-sm">
+<span class="font-caption text-caption text-on-surface-variant uppercase tracking-wider font-semibold">Key Attribution Point Breakdown</span>
+<!-- Factor 1: Late Payments -->
+<div class="p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex items-start justify-between gap-space-sm border-l-2 border-l-error">
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-error text-[18px] mt-0.5">event_repeat</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-semibold">3 Late Payments in Last 12 Mos</span>
+<span class="font-caption text-caption text-on-surface-variant">Delayed across Q2 &amp; Q3 renewals (settled post-grace period)</span>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="font-label-code text-label-code font-bold text-error">+25 pts</span>
+<div class="font-caption text-[10px] text-error font-semibold uppercase">Severe</div>
+</div>
+</div>
+<!-- Factor 2: Claim Rejection Grievance -->
+<div class="p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex items-start justify-between gap-space-sm border-l-2 border-l-error">
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-error text-[18px] mt-0.5">report_problem</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-semibold">Claim Rejection Grievance #CLM-901</span>
+<span class="font-caption text-caption text-on-surface-variant">₹42,000 claim denied under pre-existing clause. Grievance escalated.</span>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="font-label-code text-label-code font-bold text-error">+20 pts</span>
+<div class="font-caption text-[10px] text-error font-semibold uppercase">High Hazard</div>
+</div>
+</div>
+<!-- Factor 3: Price Hike -->
+<div class="p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex items-start justify-between gap-space-sm border-l-2 border-l-secondary">
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[18px] mt-0.5">trending_up</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-semibold">Premium Price Hike (+12%)</span>
+<span class="font-caption text-caption text-on-surface-variant">Revised from ₹25,450 to ₹28,500 due to age cohort transition (42 yrs)</span>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="font-label-code text-label-code font-bold text-secondary">+15 pts</span>
+<div class="font-caption text-[10px] text-secondary font-semibold uppercase">Moderate</div>
+</div>
+</div>
+<!-- Factor 4: Portal Inactivity -->
+<div class="p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex items-start justify-between gap-space-sm border-l-2 border-l-outline">
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-outline text-[18px] mt-0.5">phonelink_erase</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-semibold">Portal Inactivity &gt; 90 Days</span>
+<span class="font-caption text-caption text-on-surface-variant">Zero member portal logins or mobile wellness syncs in Q3 cycle</span>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="font-label-code text-label-code font-bold text-outline">+18 pts</span>
+<div class="font-caption text-[10px] text-outline font-semibold uppercase">Moderate</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2: AI Prescribed Intervention Strategy -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-base relative overflow-hidden">
+<div class="absolute -right-8 -top-8 w-36 h-36 bg-primary-fixed/30 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex items-center justify-between pb-space-xs border-b border-surface-container">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[22px]">smart_toy</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">AI Prescribed Strategy</h2>
+</div>
+<span class="bg-primary/10 text-primary font-caption text-caption font-semibold px-space-xs py-space-2xs rounded-lg">
+                    Engine: RetentionGPT-v4
+                  </span>
+</div>
+<!-- Strategy Highlight Box -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-sm border-l-4 border-l-primary">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-body-md font-semibold text-on-surface">Recommended Package Formulation</span>
+<span class="bg-tertiary/15 text-tertiary font-label-code text-caption px-space-xs py-0.5 rounded font-bold">Best ROI</span>
+</div>
+<div class="flex flex-col gap-space-xs text-on-surface font-body-sm text-body-sm">
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0">check_circle</span>
+<span><strong>12% Loyalty Retention Discount:</strong> Revert annual premium from ₹28,500 back to <span class="font-label-code font-bold text-primary">₹25,080</span>.</span>
+</div>
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0">check_circle</span>
+<span><strong>Compensatory Goodwill Add-on:</strong> Free Comprehensive Family Health Checkup Voucher (Valued at ₹3,500).</span>
+</div>
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0">check_circle</span>
+<span><strong>Ombudsman Priority Review:</strong> Expedite Grievance #CLM-901 reconciliation note via underwriting head.</span>
+</div>
+</div>
+</div>
+<!-- Channel & Success Projection Metric -->
+<div class="grid grid-cols-2 gap-space-sm bg-surface-container-high/40 p-space-md rounded-xl">
+<div class="flex flex-col">
+<span class="font-caption text-caption text-on-surface-variant">Prescribed Outreach Channel</span>
+<span class="font-headline-sm text-body-md text-on-surface font-semibold flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-primary text-[16px]">support_agent</span>
+                      Senior Voice Specialist
+                    </span>
+<span class="text-[11px] text-outline">High-touch human empathy required</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-on-surface-variant">Retention Uplift Simulation</span>
+<div class="flex items-center gap-space-xs mt-0.5">
+<span class="font-metric-stat text-body-lg text-outline line-through">45%</span>
+<span class="material-symbols-outlined text-[16px] text-tertiary">arrow_forward</span>
+<span class="font-metric-stat text-headline-sm text-tertiary font-bold">79%</span>
+</div>
+<span class="text-[11px] text-tertiary font-semibold">+34% probability recovery</span>
+</div>
+</div>
+<!-- Intervention Action Protocol CTA Buttons -->
+<div class="flex flex-col sm:flex-row gap-space-sm pt-space-xs">
+<button class="flex-1 h-10 px-space-md rounded-xl bg-primary text-on-primary hover:bg-primary-container font-body-sm text-body-sm font-semibold flex items-center justify-center gap-space-xs transition-all shadow-sm active:scale-95" onclick="triggerAction('Offer package (12% Discount + Free Voucher) staged to WhatsApp draft.')">
+<span class="material-symbols-outlined text-[18px]">send</span>
+<span>Deploy Offer to Queue</span>
+</button>
+<button class="flex-1 h-10 px-space-md rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface font-body-sm text-body-sm font-semibold flex items-center justify-center gap-space-xs transition-all shadow-sm active:scale-95" onclick="triggerAction('Initiating CRM Telephony call bridge to Rahul Sharma (+91 98450 •••••)')">
+<span class="material-symbols-outlined text-[18px] text-primary">phone_in_talk</span>
+<span>Execute Call Protocol</span>
+</button>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Chronological Timeline, Ledger, and Policy Claims Intelligence (~62%) -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<!-- Tabbed Container -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+<!-- Navigation Tabs Bar -->
+<div class="flex items-center gap-space-xs px-space-lg pt-space-md bg-surface-container-low border-b border-surface-container overflow-x-auto">
+<button class="pb-space-sm px-space-md font-headline-sm text-body-md font-semibold text-primary border-b-2 border-primary transition-all flex items-center gap-space-xs whitespace-nowrap" id="tab-timeline" onclick="switchTab('timeline')">
+<span class="material-symbols-outlined text-[18px]">history</span>
+                    Chronological Activity Timeline
+                  </button>
+<button class="pb-space-sm px-space-md font-body-md text-body-md font-normal text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-space-xs whitespace-nowrap" id="tab-ledger" onclick="switchTab('ledger')">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+                    Payment Ledger &amp; Invoices
+                  </button>
+<button class="pb-space-sm px-space-md font-body-md text-body-md font-normal text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-space-xs whitespace-nowrap" id="tab-claims" onclick="switchTab('claims')">
+<span class="material-symbols-outlined text-[18px]">medical_services</span>
+                    Claims History (2)
+                  </button>
+<button class="pb-space-sm px-space-md font-body-md text-body-md font-normal text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-space-xs whitespace-nowrap" id="tab-documents" onclick="switchTab('documents')">
+<span class="material-symbols-outlined text-[18px]">description</span>
+                    Policy Docs
+                  </button>
+</div>
+<!-- TAB CONTENT 1: Chronological 5-Year Activity Timeline (Active) -->
+<div class="p-space-lg flex flex-col gap-space-lg" id="content-timeline">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-sm text-body-md text-on-surface font-semibold">5-Year Lifecycle Audit Stream</span>
+<span class="font-caption text-caption text-on-surface-variant">Real-time touchpoints, telemetry events, and settlement logs</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-caption text-caption">
+<span class="material-symbols-outlined text-[16px] text-tertiary">sync</span>
+<span>Live Event Stream</span>
+</div>
+</div>
+<!-- Timeline Vertical Track -->
+<div class="relative pl-6 space-y-6 before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-surface-container">
+<!-- Timeline Item 1 (Oct 25, 2025) -->
+<div class="relative group">
+<div class="absolute -left-6 top-1 w-3.5 h-3.5 rounded-full bg-primary ring-4 ring-surface-container-lowest"></div>
+<div class="bg-surface-container-low/70 p-space-md rounded-xl hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between flex-wrap gap-1">
+<span class="font-headline-sm text-body-md text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">outgoing_mail</span>
+                            Renewal Reminder Sent via WhatsApp
+                          </span>
+<span class="font-label-code text-caption text-on-surface-variant">Oct 25, 2025 • 10:14 AM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                          Automated 3-day renewal notification ping dispatched. Gateway status: <strong class="text-on-surface">Delivered, Unopened</strong>. Link not clicked.
+                        </p>
+<div class="flex items-center gap-2 mt-2">
+<span class="font-label-code text-[11px] bg-surface-container-highest px-2 py-0.5 rounded text-on-surface">WA-MSG-8812</span>
+<span class="font-caption text-[11px] text-outline">Trigger: Auto-Campaign #3D-EXP</span>
+</div>
+</div>
+</div>
+<!-- Timeline Item 2 (Oct 20, 2025) -->
+<div class="relative group">
+<div class="absolute -left-6 top-1 w-3.5 h-3.5 rounded-full bg-secondary ring-4 ring-surface-container-lowest"></div>
+<div class="bg-surface-container-low/70 p-space-md rounded-xl hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between flex-wrap gap-1">
+<span class="font-headline-sm text-body-md text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[18px]">receipt</span>
+                            Year 6 Renewal Notice Generated
+                          </span>
+<span class="font-label-code text-caption text-on-surface-variant">Oct 20, 2025 • 09:00 AM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                          Revised premium notice published: ₹28,500 (inclusive of GST). Underwriting flagged age band change (bracket 40–45). Notice emailed to registered address.
+                        </p>
+</div>
+</div>
+<!-- Timeline Item 3 (Aug 14, 2025) -->
+<div class="relative group">
+<div class="absolute -left-6 top-1 w-3.5 h-3.5 rounded-full bg-error ring-4 ring-surface-container-lowest animate-pulse"></div>
+<div class="bg-error-container/20 p-space-md rounded-xl hover:bg-error-container/30 transition-all border-l-2 border-l-error">
+<div class="flex items-center justify-between flex-wrap gap-1">
+<span class="font-headline-sm text-body-md text-error font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-error text-[18px]">cancel</span>
+                            Hospitalization Claim #CLM-901 Rejected
+                          </span>
+<span class="font-label-code text-caption text-on-error-container">Aug 14, 2025 • 04:30 PM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface mt-1">
+                          ₹42,000 claim for spouse hospitalization (Manipal Hospital) denied by TPA under "Pre-existing Condition Exclusion Clause 4.2". Customer raised formal dispute via support desk on Aug 16.
+                        </p>
+<div class="flex items-center gap-space-sm mt-2">
+<span class="bg-error text-on-error font-caption text-[11px] font-semibold px-2 py-0.5 rounded">Grievance Active</span>
+<span class="font-caption text-caption text-on-surface-variant">Assigned Officer: Underwriting Ombudsman (Escalation Level 2)</span>
+</div>
+</div>
+</div>
+<!-- Timeline Item 4 (Mar 10, 2025) -->
+<div class="relative group">
+<div class="absolute -left-6 top-1 w-3.5 h-3.5 rounded-full bg-secondary ring-4 ring-surface-container-lowest"></div>
+<div class="bg-surface-container-low/70 p-space-md rounded-xl hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between flex-wrap gap-1">
+<span class="font-headline-sm text-body-md text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[18px]">warning_amber</span>
+                            Quarterly Installment Delayed (18 Days Grace Exceeded)
+                          </span>
+<span class="font-label-code text-caption text-on-surface-variant">Mar 10, 2025 • 06:12 PM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                          Installment payment was delayed by 18 days beyond the statutory grace period. Policy was in temporary lapsed status before reinstatement payment was settled.
+                        </p>
+</div>
+</div>
+<!-- Timeline Item 5 (Oct 28, 2024) -->
+<div class="relative group">
+<div class="absolute -left-6 top-1 w-3.5 h-3.5 rounded-full bg-tertiary ring-4 ring-surface-container-lowest"></div>
+<div class="bg-surface-container-low/70 p-space-md rounded-xl hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between flex-wrap gap-1">
+<span class="font-headline-sm text-body-md text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-tertiary text-[18px]">check_circle</span>
+                            Year 4 Policy Renewed On-Time
+                          </span>
+<span class="font-label-code text-caption text-on-surface-variant">Oct 28, 2024 • 11:20 AM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                          Net premium of ₹25,450 paid seamlessly via UPI AutoPay. 15% Cumulative No-Claim Bonus credited to base sum insured.
+                        </p>
+</div>
+</div>
+<!-- Timeline Item 6 (Oct 28, 2019) -->
+<div class="relative group">
+<div class="absolute -left-6 top-1 w-3.5 h-3.5 rounded-full bg-primary ring-4 ring-surface-container-lowest"></div>
+<div class="bg-surface-container-low/70 p-space-md rounded-xl hover:bg-surface-container transition-all">
+<div class="flex items-center justify-between flex-wrap gap-1">
+<span class="font-headline-sm text-body-md text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">flag</span>
+                            Policy Inception (#POL-1082)
+                          </span>
+<span class="font-label-code text-caption text-on-surface-variant">Oct 28, 2019</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                          Health Comprehensive Shield originated with base sum insured ₹10,00,000. Customer acquired via Bengaluru corporate direct campaign.
+                        </p>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB CONTENT 2: Payment Ledger -->
+<div class="p-space-lg hidden flex-col gap-space-md" id="content-ledger">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-body-md font-semibold text-on-surface">Payment Invoices &amp; Settlements</span>
+<button class="font-caption text-caption text-primary hover:underline">Download All Statements</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-caption text-caption">
+<th class="py-space-sm px-space-md rounded-l-lg">Cycle</th>
+<th class="py-space-sm px-space-md">Invoice #</th>
+<th class="py-space-sm px-space-md">Amount</th>
+<th class="py-space-sm px-space-md">Method</th>
+<th class="py-space-sm px-space-md">Payment Date</th>
+<th class="py-space-sm px-space-md rounded-r-lg">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container text-on-surface">
+<tr class="hover:bg-surface-container-low/50">
+<td class="py-space-sm px-space-md font-semibold">2024 - 2025</td>
+<td class="py-space-sm px-space-md font-label-code text-label-code">INV-9902</td>
+<td class="py-space-sm px-space-md font-label-code font-bold">₹25,450</td>
+<td class="py-space-sm px-space-md">UPI AutoPay</td>
+<td class="py-space-sm px-space-md">Oct 28, 2024</td>
+<td class="py-space-sm px-space-md"><span class="bg-tertiary/15 text-tertiary px-2 py-0.5 rounded font-caption text-[11px] font-bold">Paid</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low/50">
+<td class="py-space-sm px-space-md font-semibold">2023 - 2024</td>
+<td class="py-space-sm px-space-md font-label-code text-label-code">INV-7412</td>
+<td class="py-space-sm px-space-md font-label-code font-bold">₹23,200</td>
+<td class="py-space-sm px-space-md">NetBanking</td>
+<td class="py-space-sm px-space-md">Oct 27, 2023</td>
+<td class="py-space-sm px-space-md"><span class="bg-tertiary/15 text-tertiary px-2 py-0.5 rounded font-caption text-[11px] font-bold">Paid</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low/50">
+<td class="py-space-sm px-space-md font-semibold">2022 - 2023</td>
+<td class="py-space-sm px-space-md font-label-code text-label-code">INV-5510</td>
+<td class="py-space-sm px-space-md font-label-code font-bold">₹21,800</td>
+<td class="py-space-sm px-space-md">Credit Card</td>
+<td class="py-space-sm px-space-md">Nov 04, 2022 (Late)</td>
+<td class="py-space-sm px-space-md"><span class="bg-secondary/15 text-secondary px-2 py-0.5 rounded font-caption text-[11px] font-bold">Late Paid</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- TAB CONTENT 3: Claims History -->
+<div class="p-space-lg hidden flex-col gap-space-md" id="content-claims">
+<span class="font-headline-sm text-body-md font-semibold text-on-surface">Claims Registered Under #POL-1082</span>
+<div class="p-space-md rounded-xl bg-error-container/20 border-l-4 border-l-error flex flex-col gap-space-xs">
+<div class="flex justify-between items-center">
+<span class="font-headline-sm text-body-md text-error font-bold">Claim #CLM-901 • ₹42,000</span>
+<span class="bg-error text-on-error font-caption text-[11px] px-2 py-0.5 rounded font-bold">Rejected &amp; In Dispute</span>
+</div>
+<span class="font-caption text-caption text-on-surface">Hospital: Manipal Hospital, Bengaluru • Specialty: Gastroenterology</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Rejection Basis: Clause 4.2 (Alleged pre-existing condition non-disclosure). Customer presented historical diagnosis records proving acute onset.</p>
+<div class="mt-space-xs flex items-center justify-between text-caption font-caption">
+<span class="text-error font-semibold">Ombudsman Desk SLA: 48 Hours Remaining</span>
+<button class="bg-surface-container-lowest px-space-sm py-1 rounded text-primary font-semibold hover:bg-surface-container" onclick="triggerAction('Claim #CLM-901 flagged for expedited Underwriter review.')">Review Dossier</button>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+<div class="flex justify-between items-center">
+<span class="font-headline-sm text-body-md text-on-surface font-semibold">Claim #CLM-418 • ₹18,500</span>
+<span class="bg-tertiary/15 text-tertiary font-caption text-[11px] px-2 py-0.5 rounded font-bold">Settled (Dec 2021)</span>
+</div>
+<span class="font-caption text-caption text-on-surface-variant">Hospital: Apollo Cradle, Bengaluru • Daycare Procedure</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cashless settlement honored within 2 hours. Zero customer friction recorded.</p>
+</div>
+</div>
+<!-- TAB CONTENT 4: Policy Documents -->
+<div class="p-space-lg hidden flex-col gap-space-sm" id="content-documents">
+<span class="font-headline-sm text-body-md font-semibold text-on-surface">Digitized Policy Assets</span>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm mt-space-xs">
+<div class="p-space-md bg-surface-container-low rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[24px]">picture_as_pdf</span>
+<div class="flex flex-col">
+<span class="font-body-sm font-semibold text-on-surface">Policy Schedule 2024-25.pdf</span>
+<span class="font-caption text-outline">1.8 MB • Signed</span>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary">download</button>
+</div>
+<div class="p-space-md bg-surface-container-low rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[24px]">picture_as_pdf</span>
+<div class="flex flex-col">
+<span class="font-body-sm font-semibold text-on-surface">Claim Grievance Filing #901.pdf</span>
+<span class="font-caption text-outline">840 KB • Ombudsman Copy</span>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary">download</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Payment Reliability & Claims Summary Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Metric 1: Reliability Index -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-caption text-caption text-on-surface-variant uppercase font-semibold">Payment Reliability</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">credit_score</span>
+</div>
+<div class="my-space-xs">
+<div class="font-metric-stat text-headline-md text-on-surface font-bold">82%</div>
+<span class="font-caption text-caption text-on-surface-variant">14 On-time / 3 Delayed</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 82%;"></div>
+</div>
+</div>
+<!-- Metric 2: Lifetime Value -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-caption text-caption text-on-surface-variant uppercase font-semibold">Lifetime Value (LTV)</span>
+<span class="material-symbols-outlined text-primary text-[20px]">payments</span>
+</div>
+<div class="my-space-xs">
+<div class="font-metric-stat text-headline-md text-primary font-bold">₹1,42,000</div>
+<span class="font-caption text-caption text-on-surface-variant">Paid across 5 full years</span>
+</div>
+<div class="flex items-center gap-1 font-caption text-[11px] text-tertiary">
+<span class="material-symbols-outlined text-[14px]">star</span>
+<span>Top 15% Portfolio Quartile</span>
+</div>
+</div>
+<!-- Metric 3: Outstanding Dispute -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between border-l-4 border-l-error">
+<div class="flex items-center justify-between">
+<span class="font-caption text-caption text-on-surface-variant uppercase font-semibold">Dispute Status</span>
+<span class="material-symbols-outlined text-error text-[20px]">gavel</span>
+</div>
+<div class="my-space-xs">
+<div class="font-body-md text-body-md font-bold text-error">#CLM-901 Under Review</div>
+<span class="font-caption text-caption text-on-surface-variant">Ombudsman desk review pending</span>
+</div>
+<span class="font-label-code text-[11px] text-error font-semibold">Escalated 6 days ago</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Interactive Scripts -->
+<script>
+    function switchTab(target) {
+      const tabs = ['timeline', 'ledger', 'claims', 'documents'];
+      tabs.forEach(tab => {
+        const btn = document.getElementById('tab-' + tab);
+        const content = document.getElementById('content-' + tab);
+        if (!btn || !content) return;
+        if (tab === target) {
+          btn.className = "pb-space-sm px-space-md font-headline-sm text-body-md font-semibold text-primary border-b-2 border-primary transition-all flex items-center gap-space-xs whitespace-nowrap";
+          content.classList.remove('hidden');
+          content.classList.add('flex');
+        } else {
+          btn.className = "pb-space-sm px-space-md font-body-md text-body-md font-normal text-on-surface-variant hover:text-on-surface transition-all flex items-center gap-space-xs whitespace-nowrap";
+          content.classList.add('hidden');
+          content.classList.remove('flex');
+        }
+      });
+    }
+
+    function selectCustomer(id) {
+      const rows = ['rahul', 'sunita', 'amit', 'priya', 'rajesh', 'vikram'];
+      rows.forEach(r => {
+        const el = document.getElementById('row-' + r);
+        if (el) {
+          if (r === id) {
+            el.className = "bg-primary/5 hover:bg-primary/10 transition-colors cursor-pointer border-l-4 border-l-primary group";
+          } else {
+            el.className = "hover:bg-surface-container-low/60 transition-colors cursor-pointer border-l-4 border-l-transparent group";
+          }
+        }
+      });
+
+      const customerNames = {
+        'rahul': 'Rahul Sharma (#POL-1082)',
+        'sunita': 'Sunita Rao (#POL-1044)',
+        'amit': 'Amit Verma (#POL-1102)',
+        'priya': 'Priya Patel (#POL-1104)',
+        'rajesh': 'Rajesh Khanna (#POL-1205)',
+        'vikram': 'Vikram Malhotra (#POL-1192)'
+      };
+
+      triggerAction('Loaded detailed customer retention dossier for ' + (customerNames[id] || id));
+
+      // Smooth scroll to the dossier
+      const dossierEl = document.getElementById('customer-dossier-wrapper');
+      if (dossierEl) {
+        dossierEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    function triggerAction(message) {
+      const toast = document.getElementById('toastNotification');
+      const toastMsg = document.getElementById('toastMessage');
+      if (!toast || !toastMsg) return;
+
+      toastMsg.innerText = message;
+      toast.classList.remove('opacity-0', 'translate-y-[-100px]', 'pointer-events-none');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-[-100px]', 'pointer-events-none');
+        toast.classList.remove('opacity-100', 'translate-y-0');
+      }, 4200);
+    }
+  </script>
+</body></html>
