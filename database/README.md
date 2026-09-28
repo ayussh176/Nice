@@ -1,136 +1,125 @@
-# PostgreSQL Database & Data Seeding Engine: Insurance Retention Platform
+# PostgreSQL Database & Seeding Engine: Insurance Retention Platform
 
-This directory contains the database schema, data seeding engine, and data contracts for the Insurance Policy Renewal & Lapse Prevention platform.
+This directory contains the authoritative database schema, data seeding engine, and contracts for the Insurance Policy Renewal & Lapse Prevention platform.
 
 ---
 
 ## 1. Quick Start: Running PostgreSQL with Docker
 
+### Architecture
+```
+Windows Host
+    |
+    └── Docker Desktop
+            |
+            └── PostgreSQL 16 Alpine Container (insurance_retention_postgres)
+                    |
+                    └── insurance_retention Database
+```
+
+> **Note on Ports**: To avoid conflict with any existing Windows services on port `5432`, Docker PostgreSQL is exposed on **Host Port `5433`** (`5433:5432`). PostgreSQL does **not** need to be installed on Windows.
+
 ### Step 1: Start PostgreSQL Container
 ```bash
-# Start PostgreSQL 16 container in the background:
 docker compose up -d
 ```
-The Docker Compose setup mounts [database/schema.sql](file:///d:/Blockchain/nice/database/schema.sql) to automatically initialize all tables, indexes, and views on first launch.
 
-### Step 2: Install Python Dependencies
+### Step 2: Run the Database Seeding Engine
 ```bash
-pip install -r database/requirements.txt
-```
-
-### Step 3: Run the Database Seeding Engine
-```bash
-# Seed the primary 10,000-policy dataset:
 python database/seed_database.py
 ```
 
-### Optional: Clean Reset in Development
+### Step 3: Start the Backend API (Node.js/Express)
 ```bash
-# Truncates tables and re-seeds cleanly:
-python database/seed_database.py --reset
+cd backend
+npm install
+npm run dev
 ```
+
+### Step 4: Start the React Frontend (Vite)
+```bash
+cd Frontend
+npm install
+npm run dev
+```
+
+Open **`http://localhost:5173/database`** to launch the interactive Database Explorer.
 
 ---
 
 ## 2. Database Connection Details
 
-Environment configuration is read from `.env` (template: [.env.example](file:///d:/Blockchain/nice/.env.example)):
+Environment configuration is read from `.env`:
 
-| Variable | Default Value | Description |
+| Variable | Value | Description |
 |---|---|---|
-| `POSTGRES_HOST` | `localhost` | Database server host |
-| `POSTGRES_PORT` | `5432` | Database port |
+| `POSTGRES_HOST` | `localhost` | Database host |
+| `POSTGRES_PORT` | `5433` | Host port mapped to Docker container (5432 internal) |
 | `POSTGRES_DB` | `insurance_retention` | Database name |
 | `POSTGRES_USER` | `postgres` | Superuser username |
 | `POSTGRES_PASSWORD` | `postgres` | Superuser password |
-| `DATABASE_URL` | `postgresql://postgres:postgres@localhost:5432/insurance_retention` | Full SQLAlchemy / Psycopg2 URI |
+| `DATABASE_URL` | `postgresql://postgres:postgres@localhost:5433/insurance_retention` | PostgreSQL connection string |
+| `BACKEND_PORT` | `3001` | Express Backend port |
 
 ---
 
-## 3. Entity-Relationship (ER) Architecture
+## 3. Entity-Relationship (ER) Architecture (20K Authoritative)
 
 ```mermaid
 erDiagram
-    CUSTOMERS ||--o{ POLICIES : "holds (1:N)"
-    POLICIES ||--|| PAYMENT_SUMMARY : "has (1:1)"
-    POLICIES ||--|| CLAIM_SUMMARY : "has (1:1)"
-    POLICIES ||--o{ RISK_SCORES : "evaluated by (1:N)"
-    POLICIES ||--o{ RENEWAL_OFFERS : "receives (1:N)"
-    POLICIES ||--o{ INTERACTIONS : "contact log (1:N)"
-    POLICIES ||--o{ RETENTION_ACTIONS : "action items (1:N)"
+    POLICY_PRODUCTS ||--o{ CUSTOMER_POLICIES : "catalog plan (1:N)"
+    CUSTOMERS ||--o{ CUSTOMER_POLICIES : "holds (1:N)"
+    CUSTOMER_POLICIES ||--|| PAYMENT_SUMMARY : "has (1:1)"
+    CUSTOMER_POLICIES ||--|| CLAIM_SUMMARY : "has (1:1)"
+    CUSTOMER_POLICIES ||--o{ RISK_SCORES : "evaluated by (1:N)"
+    CUSTOMER_POLICIES ||--o{ RENEWAL_OFFERS : "receives (1:N)"
+    CUSTOMER_POLICIES ||--o{ INTERACTIONS : "operational log (1:N)"
+    CUSTOMER_POLICIES ||--o{ RETENTION_ACTIONS : "action queue (1:N)"
 ```
 
 ---
 
-## 4. Primary Dataset Mapping & Normalization
+## 4. Authoritative Dataset Mapping (20,000 Records)
 
-The primary dataset [insurance_policy_renewal_10000.csv](file:///d:/Blockchain/nice/data/insurance_policy_renewal_10000.csv) contains **10,000 rows** and is normalized as follows:
+Primary source: `data/insurance_policies_20000.csv` (20,000 customer-policy records).
 
-| Target Table | Columns Populated | Row Count | Ingestion Logic |
+| Target Table | Columns Populated | Initial Seed Count | Ingestion Logic |
 |---|---|---|---|
-| `customers` | `customer_id`, `customer_age`, `customer_gender`, `customer_occupation`, `customer_city`, `customer_state`, `customer_postal_code`, `customer_country`, `customer_tenure_years` | **8,223** | Deduplicated by `customer_id`. Preserves unique policyholders. |
-| `policies` | `policy_id`, `customer_id`, `policy_type`, `policy_start_date`, `policy_end_date`, `premium_amount`, `previous_premium_amount`, `premium_increase_pct`, `payment_frequency`, `policy_status`, `days_to_renewal`, `renewal_date` | **10,000** | Preserves all 10,000 unique policies. Dates normalized to `YYYY-MM-DD`. |
-| `payment_summary`| `policy_id`, `has_late_payments`, `late_payment_count`, `avg_days_late`, `on_time_payment_rate` | **10,000** | 1:1 aggregated payment performance record. |
-| `claim_summary` | `policy_id`, `num_claims_last_year`, `total_claim_amount_last_year`, `rejected_claims`, `claims_approved` | **10,000** | 1:1 aggregated claims metrics record. |
-| `risk_scores` | `risk_id`, `policy_id`, `risk_score`, `risk_level`, `model_version` | **10,000** | Seeded with baseline reference scores (`model_version = 'historical_csv'`). |
-| `renewal_offers`| `offer_id`, `policy_id`, `offer_type`, `offer_amount`, `offer_sent`, `offer_accepted`, `model_version` | **10,000** | Seeded with baseline offers (`model_version = 'historical_csv'`). |
-| `interactions` | `interaction_id`, `customer_id`, `policy_id`, `interaction_type`, `channel`, `interaction_status`, `notes` | **0** | Reserved for runtime customer interaction logging. |
-| `retention_actions` | `action_id`, `customer_id`, `policy_id`, `action_type`, `priority`, `reason`, `status`, `assigned_to` | **0** | Reserved for Smart Retention Action Center engine. |
+| `policy_products` | `policy_id`, `policy_name`, `policy_type` | **200** | Deduplicated catalog plan templates (`P001`–`P200`). |
+| `customers` | `customer_id`, `customer_age`, `customer_gender`, `customer_occupation`, `customer_tenure_years` | **20,000** | Unique customer profiles (`CUST000001`–`CUST020000`). |
+| `customer_policies` | `customer_policy_id`, `customer_id`, `policy_id`, `premium_amount`, `previous_premium_amount`, `premium_increase_pct`, `payment_frequency`, `days_to_renewal`, `policy_status` | **20,000** | Active customer policy contracts. |
+| `payment_summary` | `customer_policy_id`, `has_late_payments`, `late_payment_count`, `avg_days_late`, `on_time_payment_rate` | **20,000** | 1:1 aggregated payment performance record. |
+| `claim_summary` | `customer_policy_id`, `num_claims_last_year`, `total_claim_amount_last_year`, `rejected_claims`, `claims_approved` | **20,000** | 1:1 aggregated claims metrics record. |
+| `risk_scores` | `risk_id`, `customer_policy_id`, `risk_score`, `risk_level`, `risk_reasons`, `model_version` | **0** | *Unseeded* — destination for ML Lapse-Risk Model. |
+| `renewal_offers` | `offer_id`, `customer_policy_id`, `offer_type`, `offer_amount`, `discount_percentage`, `offer_sent`, `offer_accepted` | **0** | *Unseeded* — destination for Renewal-Offer Model. |
+| `interactions` | `interaction_id`, `customer_id`, `customer_policy_id`, `interaction_type`, `channel`, `interaction_status`, `notes` | **0** | Operational customer touchpoints. |
+| `retention_actions` | `action_id`, `customer_id`, `customer_policy_id`, `action_type`, `priority`, `reason`, `status`, `assigned_to` | **0** | Retention agent work items. |
 
 ---
 
-## 5. Machine Learning Views Reference
+## 5. Machine Learning & Analytical Views
 
-| View Name | Target Consumer | Purpose & Fields |
+| View Name | Rows | Description |
 |---|---|---|
-| `policy_model_features` | **Data Science & ML Pipeline** | Base pre-renewal feature vector with 21 legitimate predictors (Zero Leakage). |
-| `lapse_model_training_data` | **Lapse-Risk Model Training** | Contains all 21 features + `renewed` ground truth target & `lapse_target` (0/1). |
-| `lapse_model_inference_data`| **Production Batch Inference** | Pure pre-renewal feature vector without targets or post-outcome fields. |
-
-### Leakage Columns Excluded from Model Features:
-- `renewed`, `policy_status`, `offer_accepted`, `renewal_date`, `risk_score`, `renewal_offer_type`, `renewal_offer_amount`.
+| `policy_model_features` | **20,000** | Base feature vector joining customers, catalog products, policy contracts, payment summaries, and claim histories without target leakage. |
+| `lapse_model_inference_data` | **20,000** | Production inference view for ML scoring models. |
+| `portfolio_renewals` | **20,000** | Sorted renewals queue with payment and claims metrics. |
+| `retention_dashboard_summary` | **1** | Real-time aggregate KPI metrics across all underwritten policies. |
 
 ---
 
-## 6. Frontend-Ready Views Reference
+## 6. Backend API Endpoints
 
-| View Name | Primary UI Component | Key Fields & Sorting |
-|---|---|---|
-| `upcoming_renewals` | **Portfolio & Renewal Calendar** | Policy and customer details, risk metrics, and offer amounts sorted by `days_to_renewal ASC`. |
-| `customer_360` | **Customer 360 View** | Unified portfolio summary (total policies, active premium, claim metrics, on-time rate). |
-| `retention_action_queue`| **Smart Action Center** | Prioritized action items (`CRITICAL`, `HIGH`, `MEDIUM`) with suggested retention interventions. |
-| `lapsed_customers` | **Lapsed Customer Win-Back** | Lapsed accounts with past policy value and claim performance for win-back campaigns. |
-
----
-
-## 7. SQL Verification Queries
-
-```sql
--- 1. Verify exact counts across all tables
-SELECT 'customers' AS table_name, COUNT(*) AS count FROM customers
-UNION ALL
-SELECT 'policies', COUNT(*) FROM policies
-UNION ALL
-SELECT 'payment_summary', COUNT(*) FROM payment_summary
-UNION ALL
-SELECT 'claim_summary', COUNT(*) FROM claim_summary
-UNION ALL
-SELECT 'risk_scores', COUNT(*) FROM risk_scores
-UNION ALL
-SELECT 'renewal_offers', COUNT(*) FROM renewal_offers;
-
--- 2. Verify exact counts across all views (must all return 10,000)
-SELECT 'policy_model_features' AS view_name, COUNT(*) AS count FROM policy_model_features
-UNION ALL
-SELECT 'lapse_model_training_data', COUNT(*) FROM lapse_model_training_data
-UNION ALL
-SELECT 'lapse_model_inference_data', COUNT(*) FROM lapse_model_inference_data
-UNION ALL
-SELECT 'upcoming_renewals', COUNT(*) FROM upcoming_renewals;
-
--- 3. Verify zero orphan records
-SELECT 
-    (SELECT COUNT(*) FROM policies WHERE customer_id NOT IN (SELECT customer_id FROM customers)) AS orphan_policies,
-    (SELECT COUNT(*) FROM payment_summary WHERE policy_id NOT IN (SELECT policy_id FROM policies)) AS orphan_payments,
-    (SELECT COUNT(*) FROM claim_summary WHERE policy_id NOT IN (SELECT policy_id FROM policies)) AS orphan_claims;
-```
+- `GET /api/database/health` — Database connection diagnostics & Docker latency.
+- `GET /api/database/stats` — Live table and view counts directly from PostgreSQL.
+- `GET /api/database/policy-products?page=1&limit=25&search=` — Paginated catalog products.
+- `GET /api/database/customers?page=1&limit=25&search=` — Paginated customer profiles.
+- `GET /api/database/customer-policies?page=1&limit=25&search=` — Paginated customer contracts.
+- `GET /api/database/payment-summary?page=1&limit=25` — Paginated payment summaries.
+- `GET /api/database/claim-summary?page=1&limit=25` — Paginated claim summaries.
+- `GET /api/database/risk-scores?page=1&limit=25` — Paginated ML risk scores.
+- `GET /api/database/renewal-offers?page=1&limit=25` — Paginated renewal offers.
+- `GET /api/database/interactions?page=1&limit=25` — Paginated interactions.
+- `GET /api/database/retention-actions?page=1&limit=25` — Paginated retention actions.
+- `GET /api/database/customer-policy-details/:id` — Complete joined Customer 360 record.
+- `GET /api/database/views/:viewName?page=1&limit=25` — Paginated view inspector.

@@ -35,6 +35,12 @@ export default function Sidebar({ activePath }) {
       path: '/customer-details',
       label: 'Customer Details',
       icon: 'contacts'
+    },
+    {
+      path: '/database',
+      label: 'Database Explorer',
+      icon: 'database',
+      isDatabase: true
     }
   ];
 
@@ -83,23 +89,28 @@ export default function Sidebar({ activePath }) {
           {navItems.map((item) => {
             const isActive =
               currentPath === item.path ||
-              (item.path === '/' && (currentPath === '' || currentPath === '/overview-retention-dashboard'));
+              (item.path === '/' && (currentPath === '' || currentPath === '/overview-retention-dashboard')) ||
+              (item.path === '/database' && currentPath === '/data');
 
             return (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`flex items-center gap-space-md px-space-md py-space-sm rounded-xl transition-all ${
-                  isActive
-                    ? 'bg-primary-container text-on-primary font-semibold shadow-[0_1px_4px_rgba(37,99,235,0.2)]'
-                    : 'text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface'
-                }`}
-              >
-                <span className="material-symbols-outlined text-[20px]">
-                  {item.icon}
-                </span>
-                <span className="font-body-md text-body-md">{item.label}</span>
-              </Link>
+              <React.Fragment key={item.path}>
+                {item.isDatabase && (
+                  <div className="my-2 border-t border-surface-container-high" />
+                )}
+                <Link
+                  to={item.path}
+                  className={`flex items-center gap-space-md px-space-md py-space-sm rounded-xl transition-all ${
+                    isActive
+                      ? 'bg-primary-container text-on-primary font-semibold shadow-[0_1px_4px_rgba(37,99,235,0.2)]'
+                      : 'text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface'
+                  }`}
+                >
+                  <span className="material-symbols-outlined text-[20px]">
+                    {item.icon}
+                  </span>
+                  <span className="font-body-md text-body-md">{item.label}</span>
+                </Link>
+              </React.Fragment>
             );
           })}
         </nav>
