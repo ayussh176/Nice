@@ -276,17 +276,17 @@ export default function RetentionDashboardMobile() {
 <div className="flex items-center justify-around py-space-xs">
 {/*  SVG Doughnut Chart  */}
 <div className="relative w-28 h-28 flex items-center justify-center">
-<svg className="w-28 h-28 transform -rotate-90" viewbox="0 0 36 36">
+<svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
 {/*  Background circle  */}
 <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#e5eeff" strokeWidth="4.5"></path>
 {/*  Low Risk: 66% stroke-dasharray (green: #007d55)  */}
-<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#007d55" stroke-dasharray="66, 100" strokeWidth="4.5"></path>
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#007d55" strokeDasharray="66, 100" strokeWidth="4.5"></path>
 {/*  Medium Risk: 25% (yellow: #eab308 offset 66)  */}
-<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#f59e0b" stroke-dasharray="25, 100" stroke-dashoffset="-66" strokeWidth="4.5"></path>
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#f59e0b" strokeDasharray="25, 100" strokeDashoffset="-66" strokeWidth="4.5"></path>
 {/*  High Risk: 9% (error: #ba1a1a offset 91)  */}
-<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#ba1a1a" stroke-dasharray="9, 100" stroke-dashoffset="-91" strokeWidth="4.5"></path>
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#ba1a1a" strokeDasharray="9, 100" strokeDashoffset="-91" strokeWidth="4.5"></path>
 </svg>
-<div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+<div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
 <span className="font-metric-stat text-[16px] text-on-surface font-bold leading-none">200</span>
 <span className="font-caption text-[10px] text-on-surface-variant uppercase mt-0.5">Policies</span>
 </div>
@@ -395,11 +395,11 @@ export default function RetentionDashboardMobile() {
 </div>
 {/*  Inline SVG Trend Visualization  */}
 <div className="w-full pt-space-xs">
-<svg className="w-full h-20 overflow-visible" viewbox="0 0 320 85">
+<svg className="w-full h-20 overflow-visible" viewBox="0 0 320 85">
 {/*  Subtle Grid Lines  */}
-<line stroke="#e5eeff" stroke-dasharray="3,3" strokeWidth="1" x1="10" x2="310" y1="15" y2="15"></line>
-<line stroke="#e5eeff" stroke-dasharray="3,3" strokeWidth="1" x1="10" x2="310" y1="45" y2="45"></line>
-<line stroke="#e5eeff" stroke-dasharray="3,3" strokeWidth="1" x1="10" x2="310" y1="75" y2="75"></line>
+<line stroke="#e5eeff" strokeDasharray="3,3" strokeWidth="1" x1="10" x2="310" y1="15" y2="15"></line>
+<line stroke="#e5eeff" strokeDasharray="3,3" strokeWidth="1" x1="10" x2="310" y1="45" y2="45"></line>
+<line stroke="#e5eeff" strokeDasharray="3,3" strokeWidth="1" x1="10" x2="310" y1="75" y2="75"></line>
 {/*  Area Gradient Definition  */}
 <defs>
 <lineargradient id="savedGradient" x1="0%" x2="0%" y1="0%" y2="100%">
@@ -411,7 +411,7 @@ export default function RetentionDashboardMobile() {
 <polygon fill="url(#savedGradient)" points="10,65 60,52 110,48 160,35 210,25 260,20 310,12 310,80 10,80"></polygon>
 <polyline fill="none" points="10,65 60,52 110,48 160,35 210,25 260,20 310,12" stroke="#007d55" strokeLinecap="round" strokeWidth="2.5"></polyline>
 {/*  Lapsed Trend Path  */}
-<polyline fill="none" points="10,40 60,42 110,50 160,58 210,62 260,68 310,72" stroke="#ba1a1a" stroke-dasharray="4,2" strokeWidth="2"></polyline>
+<polyline fill="none" points="10,40 60,42 110,50 160,58 210,62 260,68 310,72" stroke="#ba1a1a" strokeDasharray="4,2" strokeWidth="2"></polyline>
 {/*  Data Points on Saved Line  */}
 <circle cx="210" cy="25" fill="#007d55" r="3.5"></circle>
 <circle cx="260" cy="20" fill="#007d55" r="3.5"></circle>
