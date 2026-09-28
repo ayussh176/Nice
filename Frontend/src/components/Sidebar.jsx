@@ -35,13 +35,8 @@ export default function Sidebar({ activePath }) {
       path: '/customer-details',
       label: 'Customer Details',
       icon: 'contacts'
-    },
-    {
-      path: '/database',
-      label: 'Database Explorer',
-      icon: 'database',
-      isDatabase: true
     }
+    
   ];
 
   return (

@@ -275,11 +275,11 @@ export default function SmartRemindersDesktop() {
 </div>
 {/*  Channel & Velocity Pill  */}
 <div className="flex flex-col items-end gap-1">
-<div className="inline-flex items-center gap-1 px-space-sm py-1 bg-surface-container rounded-lg font-caption text-caption font-semibold text-primary">
-<span className="material-symbols-outlined text-[15px]">call</span>
-                  Prescribed: Direct Phone Call
+<div className="inline-flex items-center gap-1 px-space-sm py-1 bg-surface-container rounded-lg font-caption text-caption font-semibold text-tertiary">
+<span className="material-symbols-outlined text-[15px]">chat</span>
+                  Prescribed: Priority WhatsApp Outreach
                 </div>
-<span className="font-caption text-[11px] text-tertiary font-medium">Optimal Window: 4:00 PM – 6:00 PM (84% Conv.)</span>
+<span className="font-caption text-[11px] text-tertiary font-medium">Instant WhatsApp Delivery (94% Read Rate)</span>
 </div>
 </div>
 {/*  Context Details & Recommendation Strip  */}
@@ -300,12 +300,12 @@ export default function SmartRemindersDesktop() {
 <div className="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
 <div className="flex items-center gap-space-xs">
 <button className="h-9 px-space-md bg-primary hover:bg-primary-container text-on-primary rounded-lg font-body-sm font-semibold shadow-sm transition-all flex items-center gap-space-xs" >
-<span className="material-symbols-outlined text-[16px]">call</span>
-<span>Initiate Priority Call</span>
+<span className="material-symbols-outlined text-[16px]">send</span>
+<span>Send Priority WhatsApp</span>
 </button>
 <button className="h-9 px-space-md bg-surface-container-lowest hover:bg-surface-container-high text-on-surface rounded-lg font-body-sm font-medium transition-all flex items-center gap-space-xs" >
-<span className="material-symbols-outlined text-[16px]">event</span>
-<span>Schedule Call</span>
+<span className="material-symbols-outlined text-[16px]">schedule_send</span>
+<span>Schedule WhatsApp Ping</span>
 </button>
 </div>
 <div className="flex items-center gap-space-xs">
@@ -434,10 +434,10 @@ export default function SmartRemindersDesktop() {
 {/*  Channel & Velocity Pill  */}
 <div className="flex flex-col items-end gap-1">
 <div className="inline-flex items-center gap-1 px-space-sm py-1 bg-surface-container rounded-lg font-caption text-caption font-semibold text-primary">
-<span className="material-symbols-outlined text-[15px]">headset_mic</span>
-                  Prescribed: Senior Advisor Call
+<span className="material-symbols-outlined text-[15px]">chat</span>
+                  Prescribed: WhatsApp Interactive Nudge
                 </div>
-<span className="font-caption text-[11px] text-on-surface-variant font-medium">Unopened WhatsApp notifications • Afternoon preference</span>
+<span className="font-caption text-[11px] text-on-surface-variant font-medium">96% Mobile engagement • Direct UPI renewal payload</span>
 </div>
 </div>
 {/*  Context Details Strip  */}
@@ -451,15 +451,15 @@ export default function SmartRemindersDesktop() {
 </div>
 <div className="text-on-surface-variant text-caption flex items-center gap-1 bg-surface-container-lowest px-space-xs py-1 rounded">
 <span className="material-symbols-outlined text-[14px] text-on-surface-variant">person_check</span>
-<span>Assigned: Senior Advisor Rajeev K.</span>
+<span>Assigned: Retention Specialist Rajeev K.</span>
 </div>
 </div>
 {/*  Action Controls Row  */}
 <div className="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
 <div className="flex items-center gap-space-xs">
 <button className="h-9 px-space-md bg-primary hover:bg-primary-container text-on-primary rounded-lg font-body-sm font-semibold shadow-sm transition-all flex items-center gap-space-xs" >
-<span className="material-symbols-outlined text-[16px]">call</span>
-<span>Connect Advisor</span>
+<span className="material-symbols-outlined text-[16px]">send</span>
+<span>Send Priority WhatsApp</span>
 </button>
 <button className="h-9 px-space-md bg-surface-container-lowest hover:bg-surface-container-high text-on-surface rounded-lg font-body-sm font-medium transition-all flex items-center gap-space-xs" >
 <span className="material-symbols-outlined text-[16px]">sms</span>
@@ -641,11 +641,7 @@ export default function SmartRemindersDesktop() {
 <div className="flex flex-col gap-space-2xs">
 <label className="font-caption text-caption uppercase text-on-surface-variant font-semibold">Active Channel Carrier</label>
 <div className="grid grid-cols-4 gap-1 p-1 bg-surface-container-low rounded-lg" id="channelSelector">
-<button className="channel-btn py-1.5 px-1 rounded-md bg-primary text-on-primary font-caption text-caption font-semibold flex flex-col items-center justify-center gap-1 transition-all" data-channel="call" type="button">
-<span className="material-symbols-outlined text-[16px]">call</span>
-<span>Call</span>
-</button>
-<button className="channel-btn py-1.5 px-1 rounded-md text-on-surface-variant hover:text-on-surface font-caption text-caption font-medium flex flex-col items-center justify-center gap-1 transition-all" data-channel="whatsapp" type="button">
+<button className="channel-btn py-1.5 px-1 rounded-md bg-primary text-on-primary font-caption text-caption font-semibold flex flex-col items-center justify-center gap-1 transition-all" data-channel="whatsapp" type="button">
 <span className="material-symbols-outlined text-[16px]">chat</span>
 <span>WhatsApp</span>
 </button>
@@ -656,6 +652,10 @@ export default function SmartRemindersDesktop() {
 <button className="channel-btn py-1.5 px-1 rounded-md text-on-surface-variant hover:text-on-surface font-caption text-caption font-medium flex flex-col items-center justify-center gap-1 transition-all" data-channel="sms" type="button">
 <span className="material-symbols-outlined text-[16px]">sms</span>
 <span>SMS</span>
+</button>
+<button className="channel-btn py-1.5 px-1 rounded-md text-on-surface-variant hover:text-on-surface font-caption text-caption font-medium flex flex-col items-center justify-center gap-1 transition-all" data-channel="push" type="button">
+<span className="material-symbols-outlined text-[16px]">notifications_active</span>
+<span>App Push</span>
 </button>
 </div>
 </div>
@@ -681,9 +681,9 @@ export default function SmartRemindersDesktop() {
 <label className="font-caption text-caption text-on-surface-variant font-medium block mb-1">Assigned Agent</label>
 <div className="relative">
 <select className="w-full h-10 pl-space-sm pr-8 bg-surface-container-low text-on-surface rounded-lg font-body-sm focus:outline-none focus:ring-2 focus:ring-primary/20 appearance-none">
-<option>Elena Rostova</option>
-<option>Rajeev K. (Sr.)</option>
-<option>AI Voice Bot (v4)</option>
+<option>Elena Rostova (Retention)</option>
+<option>Rajeev K. (Senior Lead)</option>
+<option>WhatsApp AI Bot (v4)</option>
 </select>
 <span className="material-symbols-outlined absolute right-2 top-2.5 text-on-surface-variant text-[16px] pointer-events-none">expand_more</span>
 </div>
@@ -692,7 +692,7 @@ export default function SmartRemindersDesktop() {
 {/*  Pitch / Script Preview Box  */}
 <div>
 <div className="flex items-center justify-between mb-1">
-<label className="font-caption text-caption text-on-surface-variant font-medium">Personalized Script / Payload</label>
+<label className="font-caption text-caption text-on-surface-variant font-medium">Personalized WhatsApp Script / Payload</label>
 <span className="font-caption text-[11px] text-primary cursor-pointer hover:underline" id="regenerateScriptBtn">Regenerate AI Pitch</span>
 </div>
 <div className="p-space-sm bg-surface-container-low rounded-lg font-body-sm text-on-surface flex flex-col gap-1 relative text-caption">
@@ -732,17 +732,17 @@ export default function SmartRemindersDesktop() {
 </div>
 <span className="font-caption text-[11px] text-on-surface-variant">Avg payment speed: 2h 14m via instant checkout UPI</span>
 </div>
-{/*  Channel 2: Phone  */}
+{/*  Channel 2: Push Notifications  */}
 <div className="flex flex-col gap-1">
 <div className="flex items-center justify-between text-caption font-medium">
 <span className="flex items-center gap-1 text-on-surface font-semibold">
-<span className="material-symbols-outlined text-primary text-[16px]">call</span>
-                  Advisor Direct Phone
+<span className="material-symbols-outlined text-primary text-[16px]">notifications_active</span>
+                  Mobile In-App Alerts
                 </span>
-<span className="font-label-code text-primary font-bold">68% Retained (4.2m avg)</span>
+<span className="font-label-code text-primary font-bold">78% Retained (Real-time)</span>
 </div>
 <div className="w-full bg-surface-container h-2 rounded-full overflow-hidden">
-<div className="bg-primary h-full rounded-full" style={{"width": "68%"}}></div>
+<div className="bg-primary h-full rounded-full" style={{"width": "78%"}}></div>
 </div>
 <span className="font-caption text-[11px] text-on-surface-variant">Highest renewal lock for &gt;₹50k premium tiers</span>
 </div>
