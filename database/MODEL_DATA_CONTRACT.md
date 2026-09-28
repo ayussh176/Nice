@@ -1,163 +1,136 @@
-# ML Model Data Contract: Lapse-Risk & Renewal-Offer Models
+# Machine Learning Data Contract: Lapse-Risk & Renewal-Offer Models
 
-## 1. Overview & Architecture
+## 1. System Architecture & Role of PostgreSQL
 
-The PostgreSQL database `insurance_retention` serves as the single source of truth for the entire platform.
+PostgreSQL serves as the authoritative single source of truth for the entire Insurance Policy Renewal & Lapse Prevention platform.
 
 ```
-+-------------------------------------------------------------+
-|                      PostgreSQL Database                     |
-|                                                             |
-|   +-----------------------------------------------------+   |
-|   |         INPUT VIEW: policy_model_features           |   |
-|   +-----------------------------------------------------+   |
-|                              |                              |
-|                              v                              |
-|                     [ML Model Pipelines]                    |
-|                   (Lapse Risk & Offer Recs)                 |
-|                              |                              |
-|            +-----------------+-----------------+            |
-|            |                                   |            |
-|            v                                   v            |
-|   +-------------------+              +------------------+   |
-|   | OUTPUT:           |              | OUTPUT:          |   |
-|   | risk_scores       |              | renewal_offers   |   |
-|   +-------------------+              +------------------+   |
-+-------------------------------------------------------------+
-```
-
----
-
-## 2. MODEL INPUT CONTRACT: `policy_model_features`
-
-The ML feature extraction layer reads from the pre-aggregated PostgreSQL view `policy_model_features`. Each row represents **one unique policy** with pre-calculated, non-multiplying historical aggregations.
-
-### Field Specification
-
-| Field Name | PostgreSQL Type | Nullable | Description & Domain | Example Value |
-|---|---|---|---|---|
-| `policy_id` | `VARCHAR(30)` | **No** | Unique primary key of the policy | `"POL0016"` |
-| `customer_id` | `VARCHAR(30)` | **No** | Unique identifier of the policyholder | `"CUST0016"` |
-| `customer_age` | `INT` | **No** | Age in years (18–120) | `31` |
-| `customer_gender` | `VARCHAR(20)` | **No** | Gender (`male`, `female`, `other`) | `"male"` |
-| `customer_occupation` | `VARCHAR(100)` | Yes | Customer profession/occupation | `"bank teller"` |
-| `customer_city` | `VARCHAR(100)` | Yes | Customer city of residence | `"Boston"` |
-| `customer_country` | `VARCHAR(60)` | Yes | Customer country | `"USA"` |
-| `product` | `VARCHAR(30)` | **No** | Insurance product (`auto`, `home`, `health`, `life`, `travel`, `other`) | `"health"` |
-| `premium` | `NUMERIC(12,2)` | **No** | Current term premium amount | `670.00` |
-| `previous_premium` | `NUMERIC(12,2)` | Yes | Previous cycle premium amount | `610.00` |
-| `premium_increase_pct`| `NUMERIC(6,2)` | **No** | Percentage increase compared to prior term | `9.84` |
-| `payment_frequency` | `VARCHAR(20)` | **No** | Schedule (`monthly`, `quarterly`, `semi-annual`, `annual`) | `"quarterly"` |
-| `tenure_years` | `NUMERIC(4,1)` | **No** | Customer relationship tenure in years | `2.0` |
-| `total_payments` | `INT` | **No** | Total scheduled installment records to date | `8` |
-| `late_payments` | `INT` | **No** | Count of payments with status = `'LATE'` | `0` |
-| `missed_payments` | `INT` | **No** | Count of payments with status = `'MISSED'` | `0` |
-| `average_days_late` | `NUMERIC(6,2)` | **No** | Average days delayed on delinquent payments | `0.00` |
-| `claims_count` | `INT` | **No** | Total claim events filed under this policy | `2` |
-| `rejected_claims` | `INT` | **No** | Count of rejected claims | `0` |
-| `total_claim_amount` | `NUMERIC(12,2)` | **No** | Aggregate monetary amount claimed | `1200.00` |
-| `days_until_renewal` | `INT` | **No** | Days from `CURRENT_DATE` to `renewal_date` | `14` |
-| `current_policy_status`| `VARCHAR(20)` | **No** | Current state (`ACTIVE`, `RENEWED`, `LAPSED`, `CANCELLED`) | `"ACTIVE"` |
-
-### Sample Python Query:
-```python
-import psycopg2
-import pandas as pd
-
-conn = psycopg2.connect("postgresql://postgres:postgres@localhost:5432/insurance_retention")
-df_features = pd.read_sql("SELECT * FROM policy_model_features WHERE current_policy_status = 'ACTIVE'", conn)
++-----------------------------------------------------------------------------------------------+
+|                                PostgreSQL Database Layer                                      |
+|                                                                                               |
+|  [ Training Pipeline ]                   [ Batch Inference Pipeline ]                         |
+|  View: lapse_model_training_data          View: lapse_model_inference_data / policy_model_features|
+|  (Features + Target 'renewed')            (21 Pure Pre-Renewal Features - Zero Leakage)       |
+|            |                                           |                                      |
+|            v                                           v                                      |
+|   +------------------+                       +-------------------+                            |
+|   |  Model Training  |                       |  Lapse Prediction |                            |
+|   |  & Validation    |                       |  & Offer Engine   |                            |
+|   +------------------+                       +---------+---------+                            |
+|                                                        |                                      |
+|                     +----------------------------------+----------------------------------+   |
+|                     |                                                                     |   |
+|                     v                                                                     v   |
+|         [ Writes Lapse Scores ]                                               [ Writes Offer Recs ]   |
+|           Table: risk_scores                                                   Table: renewal_offers  |
++-----------------------------------------------------------------------------------------------+
 ```
 
 ---
 
-## 3. MODEL OUTPUT CONTRACT 1: `risk_scores`
+## 2. Model Feature Specification (`policy_model_features` & `lapse_model_inference_data`)
 
-The Lapse-Risk model computes risk probabilities and writes predictions to `risk_scores`.
+The database exposes **21 pre-renewal features** at exactly **1 row per policy** without any row multiplication or synthetic artifacts.
 
-### Table Schema & Constraints
+| # | Feature Column | PostgreSQL Type | Nullable | Description & Domain | Sample Value |
+|---|---|---|---|---|---|
+| 1 | `policy_id` | `VARCHAR(30)` | **No** (PK) | Unique Policy Identifier | `"P00201"` |
+| 2 | `customer_id` | `VARCHAR(30)` | **No** (FK) | Unique Customer Identifier | `"CUST00001"` |
+| 3 | `customer_age` | `INT` | **No** | Policyholder age in years (21–72) | `29` |
+| 4 | `customer_gender` | `VARCHAR(20)` | **No** | Gender (`Male`, `Female`, `Other`) | `"Male"` |
+| 5 | `customer_occupation` | `VARCHAR(100)` | Yes | Profession / Occupation | `"Doctor"` |
+| 6 | `customer_city` | `VARCHAR(100)` | Yes | City of residence | `"Kolkata"` |
+| 7 | `customer_state` | `VARCHAR(50)` | Yes | State / Province | `"West Bengal"` |
+| 8 | `customer_country` | `VARCHAR(60)` | Yes | Country | `"India"` |
+| 9 | `customer_tenure_years` | `NUMERIC(4,1)` | **No** | Lifetime customer tenure (0.6–8.4 yrs) | `2.7` |
+| 10 | `policy_type` | `VARCHAR(30)` | **No** | Product category (`Home`, `Travel`, `Car`, `Health`, `Life`) | `"Life"` |
+| 11 | `premium_amount` | `NUMERIC(12,2)` | **No** | Current policy premium (₹4,500 – ₹44,550) | `27250.00` |
+| 12 | `previous_premium_amount`| `NUMERIC(12,2)` | Yes | Prior cycle premium amount | `24940.00` |
+| 13 | `premium_increase_pct` | `NUMERIC(6,2)` | **No** | Premium price change percentage (-10% to +37.3%) | `9.26` |
+| 14 | `payment_frequency` | `VARCHAR(30)` | **No** | Installment schedule (`Monthly`, `Quarterly`, `Half-Yearly`, `Annual`) | `"Annual"` |
+| 15 | `days_to_renewal` | `INT` | **No** | Urgency / proximity window in days (12–93 days) | `46` |
+| 16 | `has_late_payments` | `BOOLEAN` | **No** | Historical delinquency flag (`True`/`False`) | `False` |
+| 17 | `late_payment_count` | `INT` | **No** | Number of late payments in past 12 months (0–12) | `0` |
+| 18 | `avg_days_late` | `NUMERIC(6,2)` | **No** | Average delay in payment days (0.0–30.0) | `0.00` |
+| 19 | `on_time_payment_rate` | `NUMERIC(6,2)` | **No** | On-time fulfillment percentage (0.0% – 100.0%) | `100.00` |
+| 20 | `num_claims_last_year` | `INT` | **No** | Number of claims filed in prior year (0–6) | `3` |
+| 21 | `total_claim_amount_last_year`| `NUMERIC(12,2)`| **No**| Aggregate monetary claim amount | `132460.00` |
+| 22 | `rejected_claims` | `INT` | **No** | Count of rejected claims (0–4) | `0` |
+| 23 | `claims_approved` | `INT` | **No** | Count of approved claims (0–6) | `2` |
 
-| Column Name | PostgreSQL Type | Nullable | Allowed Values / Constraints |
-|---|---|---|---|
-| `risk_id` | `INT GENERATED ALWAYS AS IDENTITY` | **No** (PK) | Auto-generated by PostgreSQL |
-| `policy_id` | `VARCHAR(30)` | **No** (FK) | Must match an existing `policies.policy_id` |
-| `risk_score` | `NUMERIC(5,4)` | **No** | Decimal between `0.0000` and `1.0000` (e.g. `0.8540`) |
-| `risk_level` | `VARCHAR(20)` | **No** | `'LOW'`, `'MEDIUM'`, `'HIGH'` |
-| `risk_reasons` | `JSONB` | Yes | List of human-readable explainability driver strings |
-| `model_version` | `VARCHAR(30)` | **No** | e.g. `'v1.0.0-xgb'`, `'baseline-rule-v1'` |
-| `calculated_at` | `TIMESTAMP WITH TIME ZONE` | **No** | Auto-defaults to `CURRENT_TIMESTAMP` |
+---
 
-### `risk_reasons` JSONB Structure Example:
-```json
-[
-  "2 late payments in past 6 months",
-  "Premium increased by 14.2% from previous cycle",
-  "1 rejected claim filed recently"
-]
-```
+## 3. Training Contract & Target Variable (`lapse_model_training_data`)
 
-### Sample Python Insert:
-```python
-import json
+For training, cross-validation, and offline evaluation, models query `lapse_model_training_data`.
 
-insert_sql = """
+### Ground Truth Targets:
+- **`renewed`** (`BOOLEAN`):
+  - `TRUE`: Customer successfully renewed (65.53% / 6,553 policies).
+  - `FALSE`: Policy lapsed (34.47% / 3,447 policies).
+- **`lapse_target`** (`INTEGER` binary label):
+  - `1`: Lapsed (`renewed = FALSE`)
+  - `0`: Renewed (`renewed = TRUE`)
+
+---
+
+## 4. Strict Data Leakage Prevention
+
+The following columns **MUST NEVER** be passed as input features to the lapse-risk or renewal-offer models:
+
+| Excluded Column | Leakage Category | Reason for Strict Prohibition |
+|---|---|---|
+| `renewed` | **Target Label** | The exact outcome being predicted. |
+| `policy_status` | **Target Proxy** | Contains `'Renewed'` or `'Lapsed'`, directly revealing the label. |
+| `offer_accepted` | **Post-Event Action** | Only known after the renewal pitch/campaign is executed. |
+| `renewal_date` | **Post-Event Timestamp** | Recorded only upon successful renewal completion. |
+| `risk_score` | **Output Variable** | Existing dataset baseline score / prediction output. |
+| `renewal_offer_type` | **Downstream Decision** | Output of the renewal-offer recommendation engine. |
+| `renewal_offer_amount`| **Downstream Decision**| Output of the pricing discount engine. |
+
+The database views `policy_model_features` and `lapse_model_inference_data` automatically enforce this exclusion.
+
+---
+
+## 5. Model Output Contract 1: `risk_scores`
+
+The ML Lapse-Risk pipeline writes predictions into `risk_scores`:
+
+```sql
 INSERT INTO risk_scores (policy_id, risk_score, risk_level, risk_reasons, model_version)
-VALUES (%s, %s, %s, %s::jsonb, %s)
-RETURNING risk_id;
-"""
-
-cursor.execute(insert_sql, (
-    "POL0016",
-    0.7850,
-    "HIGH",
-    json.dumps(["2 late payments in past 6 months", "1 rejected claim"]),
-    "v1.0.0"
-))
-conn.commit()
+VALUES (
+    'P00201',
+    78.45,
+    'HIGH',
+    '["Late payment count >= 3", "On-time rate below 65%", "Premium increase > 15%"]'::jsonb,
+    'xgb_v1.0.0'
+);
 ```
+
+- **`risk_score`**: `NUMERIC(6,2)` (0.00 to 100.00).
+- **`risk_level`**: `'LOW'` (<35.0), `'MEDIUM'` (35.0–65.0), `'HIGH'` (>65.0).
+- **`risk_reasons`**: `JSONB` array of human-readable explainability driver strings.
+- **`model_version`**: e.g., `'xgb_v1.0.0'`, `'catboost_v1'`.
 
 ---
 
-## 4. MODEL OUTPUT CONTRACT 2: `renewal_offers`
+## 6. Model Output Contract 2: `renewal_offers`
 
-The Renewal-Offer Recommendation model evaluates customer sensitivity, claim history, and risk scores to produce targeted offers.
+The ML Renewal-Offer Recommendation engine writes recommended interventions into `renewal_offers`:
 
-### Table Schema & Constraints
-
-| Column Name | PostgreSQL Type | Nullable | Allowed Values / Constraints |
-|---|---|---|---|
-| `offer_id` | `INT GENERATED ALWAYS AS IDENTITY` | **No** (PK) | Auto-generated by PostgreSQL |
-| `policy_id` | `VARCHAR(30)` | **No** (FK) | Must match `policies.policy_id` |
-| `risk_id` | `INT` | Yes (FK) | Optional reference to corresponding `risk_scores.risk_id` |
-| `offer_type` | `VARCHAR(40)` | **No** | `'STANDARD'`, `'DISCOUNT'`, `'FLEXIBLE_PAYMENT'`, `'LOYALTY_BONUS'`, `'CUSTOM'` |
-| `original_offer_amount` | `NUMERIC(12,2)` | Yes | Base nominal premium offer |
-| `discount_percentage` | `NUMERIC(5,2)` | **No** | Between `0.00` and `100.00` (e.g. `10.00` for 10% off) |
-| `installment_available`| `BOOLEAN` | **No** | `TRUE` / `FALSE` (enables monthly split payment) |
-| `no_claim_bonus` | `NUMERIC(5,2)` | **No** | Between `0.00` and `100.00` |
-| `offer_reason` | `JSONB` | Yes | Structured rationale (e.g. `{"driver": "High claim-free tenure", "benefit": "15% loyalty rebate"}`) |
-| `recommended` | `BOOLEAN` | **No** | `TRUE` if active primary recommendation |
-| `model_version` | `VARCHAR(30)` | **No** | Model identifier string |
-
-### Sample Python Insert:
-```python
-offer_sql = """
-INSERT INTO renewal_offers (
-    policy_id, risk_id, offer_type, original_offer_amount, 
-    discount_percentage, installment_available, no_claim_bonus, 
-    offer_reason, recommended, model_version
-) VALUES (%s, %s, %s, %s, %s, %s, %s, %s::jsonb, %s, %s);
-"""
-
-cursor.execute(offer_sql, (
-    "POL0016",
-    risk_id,
-    "DISCOUNT",
-    695.00,
-    10.00,
-    True,
-    5.00,
-    json.dumps({"driver": "High risk of lapse with tenure > 2 years", "strategy": "Targeted retention discount"}),
-    True,
-    "v1.0.0"
-))
-conn.commit()
+```sql
+INSERT INTO renewal_offers (policy_id, offer_type, offer_amount, offer_sent, offer_accepted, model_version)
+VALUES (
+    'P00201',
+    'DISCOUNT_PLUS_INSTALLMENT',
+    24500.00,
+    TRUE,
+    FALSE,
+    'offer_rec_v1.0.0'
+);
 ```
+
+- **`offer_type`**: `'LOYALTY_DISCOUNT'`, `'STANDARD_RENEWAL'`, `'DISCOUNT_PLUS_INSTALLMENT'`, `'INSTALLMENT_PLAN'`, `'NO_CLAIM_BENEFIT'`.
+- **`offer_amount`**: Recommended adjusted premium amount.
+- **`offer_sent`**: `TRUE` when dispatched.
+- **`offer_accepted`**: Updated by frontend/agent interaction.
